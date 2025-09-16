@@ -86,7 +86,7 @@
         .collapsible-content h4 { font-size: 1rem; margin-top: 15px; margin-bottom: 10px; border-bottom: 2px solid #f4f6f9; padding-bottom: 5px; }
         .collapsible-content ul { list-style-position: inside; padding-left: 5px; }
         
-        #contact { text-align: center; background-color: var(--primary-color); padding: 40px 0; }
+        #contact { text-align: center; background-color: var(--primary-color); padding: 40px 0 50px 0; }
         #contact h2, #contact p, #contact .contact-phone a { color: var(--light-text-color); }
         #contact h2::after { background-color: var(--light-text-color); }
         #contact p { font-size: 1.2rem; }
@@ -96,8 +96,6 @@
         .contact-links a { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background-color: var(--card-bg-color); border-radius: 50%; box-shadow: 0 5px 15px rgba(44, 62, 80, 0.1); transition: transform 0.3s, box-shadow 0.3s; }
         .contact-links a:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15); }
         .contact-links svg { width: 24px; height: 24px; fill: var(--primary-color); }
-        
-        footer { background-color: var(--primary-color); color: var(--light-text-color); text-align: center; padding: 20px 0; }
         
         .modal-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:2000;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease}.modal-backdrop.open{display:flex;opacity:1}.modal-content{background:var(--card-bg-color);border-radius:8px;padding:30px;max-width:700px;width:90%;max-height:90vh;overflow-y:auto;position:relative}.modal-close{position:absolute;top:15px;right:15px;font-size:2rem;color:#95a5a6;cursor:pointer;line-height:1}
         .modal-image-container{width:100%;height:350px;border-radius:8px;margin-bottom:20px;overflow:hidden;position:relative}
@@ -175,7 +173,7 @@
                             <div class="project-image" style="background-image: url('image/ov1.jpg');"></div>
                             <div class="project-info"><h3>Динамическая отработка возражений</h3><div class="project-tags"><span>Telegram Bot</span><span>Python</span><span>Supabase</span></div></div>
                         </div>
-                        <div class="project-card" data-title="Автоматизация обратной связи" data-desc="С помощью базовых инструментов в роли руководителя направления создал для дирекции 400+ человек инструмент для массового предоставления персональной обратной связи. Сделано написанием сценариев, текст которых зависит от показателей сотрудников.<br><br><span class='highlight'>Увеличил охват сотрудников, получающих индивидуальную ОС, с 20-30 в неделю до 400+ в день.</span>" data-img="image/os1.jpg,image/os2.jpg,image/os3.jpg">
+                        <div class="project-card" data-title="Автоматизация обратной связи" data-desc="С помощью базовых инструментов в роли руководителя направления создал для дирекции 400+ человек инструмент для массового предоставления персональной обратной связи. Сделано написанием сценариев, текст которых зависит от показателей сотрудников.<br><br><span class='highlight'>Увеличил охват сотрудников, получающих индивидуальную ОС, с 20-30 в неделю до 400+ в день.</span>" data-img="image/os1.jpg,image/os2.PNG,image/os3.jpg">
                             <div class="project-image" style="background-image: url('image/os1.jpg');"></div>
                             <div class="project-info"><h3>Автоматизация обратной связи</h3><div class="project-tags"><span>Excel</span><span>Word</span><span>Outlook</span></div></div>
                         </div>
@@ -270,12 +268,6 @@
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            
-        </div>
-    </footer>
-    
     <div class="modal-backdrop" id="project-modal">
         <div class="modal-content">
             <div class="modal-close" id="modal-close-btn">&times;</div>
