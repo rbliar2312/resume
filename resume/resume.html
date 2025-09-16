@@ -42,7 +42,7 @@
         .hero-text .subtitle { font-size: 1.1rem; font-weight: 500; color: var(--secondary-color); margin-bottom: 25px; }
         .hero-text p { margin-bottom: 15px; }
         .hero-photo { flex-basis: 40%; max-width: 350px; }
-        .hero-photo img { width: 100%; border-radius: 50%; border: 7px solid var(--card-bg-color); box-shadow: 0 10px 50px rgba(44, 62, 80, 0.2); }
+        .hero-photo img { width: 100%; border-radius: 20px; border: 7px solid var(--card-bg-color); box-shadow: 0 10px 50px rgba(44, 62, 80, 0.2); }
         
         #projects { background: transparent; padding-bottom: 40px;}
         .projects-slider-wrapper { position: relative; }
@@ -86,10 +86,12 @@
         .collapsible-content h4 { font-size: 1rem; margin-top: 15px; margin-bottom: 10px; border-bottom: 2px solid #f4f6f9; padding-bottom: 5px; }
         .collapsible-content ul { list-style-position: inside; padding-left: 5px; }
         
-        #contact { text-align: center; }
+        #contact { text-align: center; background-color: var(--primary-color); }
+        #contact h2, #contact p, #contact .contact-phone a { color: var(--light-text-color); }
+        #contact h2::after { background-color: var(--light-text-color); }
         #contact p { font-size: 1.2rem; }
-        .contact-phone { font-size: 1.5rem; font-weight: 500; color: var(--primary-color); margin: 20px 0; }
-        .contact-phone a { color: inherit; text-decoration: none; }
+        .contact-phone { font-size: 1.5rem; font-weight: 500; margin: 20px 0; }
+        .contact-phone a { text-decoration: none; }
         .contact-links { display: flex; justify-content: center; align-items: center; gap: 20px; }
         .contact-links a { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background-color: var(--card-bg-color); border-radius: 50%; box-shadow: 0 5px 15px rgba(44, 62, 80, 0.1); transition: transform 0.3s, box-shadow 0.3s; }
         .contact-links a:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15); }
@@ -139,7 +141,7 @@
             <div class="container hero-content">
                 <div class="hero-text">
                     <h1 class="main-title">Руководитель по развитию клиентской службы и проектов</h1>
-                    <p class="subtitle">Project manager | Бизнес-аналитик | Промт-инженер</p>
+                    <p class="subtitle">Project manager | Бизнес-аналитик | Промпт-инженер</p>
                     <p>Соединяю бизнес и технические решения. Делаю так, чтобы процессы работали эффективно и приносили результат. Имея опыт руководства большими командами в банковской сфере, я глубоко понимаю, как устроен клиентский сервис изнутри — с его проблемами и возможностями.</p>
                     <p>Мой подход — не в использовании конкретного ПО, а в достижении цели с помощью доступных и наиболее эффективных на данный момент инструментов. Будь то продвинутый Excel, внутренние системы компании или современные нейросети для создания прототипов.</p>
                     <p>На практике это вылилось в проекты по запуску ИИ-анализа звонков, созданию дашбордов, которые реально помогают принимать решения, и разработку ботов для автоматизации рутины. Я хорошо нахожу общий язык и с линейными сотрудниками, и с аналитиками, и со стратегами, и с разработчиками, потому что понимаю цели каждой из сторон.</p>
@@ -201,11 +203,11 @@
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>Руководитель отдела</h3>
-                            <div class="date">Июнь 2025 — наст. время</div>
+                            <div class="date">Март 2025 - Авг 2025</div>
                             <div class="company">Franch Broker</div>
                             <div class="collapsible-content">
-                                <h4>Обязанности:</h4><ul><li>Контроль за выполнением KPI группы.</li><li>Решение кадровых вопросов.</li><li>Работа с отчётностью, ее создание, анализ.</li></ul>
-                                <h4>Достижения:</h4><ul><li>Описал и изменил ряд бизнес-процессов.</li><li>Создал ряд проектов: базу знаний, консьерж-бот, динамическую отработку возражений, интерактивный дашборд.</li></ul>
+                                <h4>Обязанности:</h4><ul><li>Аудит бизнес-процессов и предложения по улучшению</li><li>Разрабатывать и внедрять проекты</li><li>Курировать техническую группу</li><li>Контроль за выполнением KPI группы.</li><li>Решение кадровых вопросов.</li><li>Работа с отчётностью, ее создание, анализ.</li></ul>
+                                <h4>Достижения:</h4><ul><li>Описал и изменил ряд БП</li><li>Создал интерактивный дашборд с помощью гугл таблиц и АПИ манго</li><li>Создал бот по отработке возражений учитывая специфику бизнеса и орг структуру</li><li>Нашел бесплатную платформу и создал с нуля базу знаний на ней</li><li>Создал единного консьерж-бота на телеграме с широким функционалом для сотрудников и руководителей</li></ul>
                             </div>
                         </div>
                     </div>
@@ -248,7 +250,7 @@
 
         <section id="contact">
             <div class="container">
-                <h2>Связаться со мной</h2>
+                <h2>Контакты</h2>
                 <p>Открыт для предложений по работе ^_^</p>
                 <div class="contact-phone">
                     <a href="tel:+79133899230">+7 913 389 92 30</a>
@@ -257,7 +259,7 @@
                    <a href="mailto:rbliar@yandex.ru" title="Email">
                        <svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
                    </a>
-                   <a href="https://t.me/don_liar" target="_blank" title="Telegram">
+                   <a href="https://t.me/Aleksei_Li_Radievich" target="_blank" title="Telegram">
                        <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.28 1.13-1.04 1.4-1.74.88L14.25 16l-4.12 3.85c-.79.71-1.2.33-1.35-.6z"></path></svg>
                    </a>
                    <a href="https://spb.hh.ru/resume/52861b9eff0f32bc060039ed1f435539794a53" target="_blank" title="Резюме на HH.ru">
@@ -270,7 +272,7 @@
 
     <footer>
         <div class="container">
-            © 2025 Алексей Ли. Эта страница тоже создана с помощью нейронки.
+            
         </div>
     </footer>
     
