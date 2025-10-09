@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>График [BRUTALIST DIARY 2.0]</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Lora:wght@700&display=swap');
+        :root {
+            --font-serif: 'Lora', serif;
+            --font-mono: 'Roboto Mono', monospace;
+            --bg-paper: #F0EFEA;
+            --text-primary: #000000;
+            --border-color: #000000;
+            --accent-primary: #FF007A;
+            --accent-yellow: #FFD600;
+            --accent-green: #00E86B;
+            --accent-blue: #00A3FF;
+            --hard-shadow: 4px 4px 0px var(--border-color);
+            --hard-shadow-sm: 2px 2px 0px var(--border-color);
+            --border-width: 2px;
+            --sidebar-width: 250px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
+        body { font-family: var(--font-mono); background-color: var(--bg-paper); color: var(--text-primary); font-size: 14px; font-weight: 500; }
+        .page-wrapper { display: flex; }
+        
+        /* === БЛОК Л: Боковая панель === */
+        .sidebar { width: var(--sidebar-width); height: 100vh; background-color: var(--bg-paper); border-right: var(--border-width) solid var(--border-color); position: fixed; top: 0; left: 0; display: flex; flex-direction: column; padding: 20px; }
+        .sidebar-header { margin-bottom: 30px; }
+        .sidebar-header img { height: 24px; filter: grayscale(1); }
+        .sidebar-nav { flex-grow: 1; }
+        .sidebar-nav ul { list-style: none; }
+        .sidebar-nav li a { display: flex; align-items: center; padding: 12px; text-decoration: none; color: var(--text-primary); font-weight: 700; margin-bottom: 8px; transition: none; }
+        .sidebar-nav li a svg { margin-right: 12px; width: 20px; height: 20px; }
+        .sidebar-nav li a:hover { background-color: var(--accent-yellow); }
+        .sidebar-nav li a.active { background-color: var(--accent-primary); }
+        .ad-container { padding-top: 15px; border-top: var(--border-width) solid var(--border-color); }
+        .ad-block { border: var(--border-width) solid var(--border-color); padding: 15px; text-align: center; font-size: 12px; margin-bottom: 15px; box-shadow: var(--hard-shadow); }
+        .ad-block .ad-title { font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+        .ad-block .ad-link { font-size: 11px; text-decoration: underline; }
+        
+        /* === ОСНОВНОЙ КОНТЕНТ (БЛОК В + БЛОК О) === */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; }
+        .main-header { display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px; }
+        .user-profile { display: flex; align-items: center; gap: 15px; }
+        .user-profile svg { cursor: pointer; }
+        .user-profile img { width: 40px; height: 40px; border: var(--border-width) solid var(--border-color); }
+        
+        /* === БЛОК В: Верхняя часть === */
+        .page-title-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: var(--border-width) solid var(--border-color);
+        }
+        h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; text-transform: uppercase; }
+        h1 .subtitle { font-family: var(--font-mono); font-size: 14px; font-weight: 400; color: #888; text-transform: none; margin-left: 5px; }
+        .tabs { display: flex; }
+        .tab-item { padding: 10px 15px; border: var(--border-width) solid var(--border-color); margin-left: -2px; font-weight: 700; cursor: pointer; background: #fff; }
+        .tab-item.active { background: var(--accent-primary); }
+        
+        .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: #fff; border: var(--border-width) solid var(--border-color); padding: 15px; margin-bottom: 20px; }
+        .filter-item { display: flex; align-items: center; border: var(--border-width) solid var(--border-color); background: #fff; padding: 8px 12px; }
+        .filter-item select { border: none; background: transparent; outline: none; font-family: var(--font-mono); font-weight: 500; }
+        .filter-item svg { margin-right: 8px; }
+        .action-btn { padding: 9px 12px; border: var(--border-width) solid var(--border-color); background: var(--accent-yellow); font-weight: 700; cursor: pointer; box-shadow: var(--hard-shadow-sm); }
+        .action-btn:active { transform: translate(2px, 2px); box-shadow: none; }
+        .action-btn.add { background: var(--accent-green); margin-left: auto; }
+        
+        /* === БЛОК О: Основное расписание === */
+        .schedule-controls { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .nav-week-btn { font-weight: 700; text-decoration: underline; color: var(--text-primary); cursor: pointer; }
+        
+        .schedule-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .day-column { display: flex; flex-direction: column; gap: 15px; }
+        .day-header { font-weight: 700; font-size: 13px; text-transform: uppercase; border-bottom: var(--border-width) solid var(--border-color); padding-bottom: 10px; }
+        .add-test-btn { width: 100%; padding: 10px; border: var(--border-width) dashed var(--border-color); background: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px); font-weight: 700; cursor: pointer; }
+
+        .test-card { background: #fff; border: var(--border-width) solid var(--border-color); padding: 15px; box-shadow: var(--hard-shadow); cursor: pointer; transition: transform 0.1s linear; }
+        .test-card:active { transform: translate(4px, 4px); box-shadow: none; }
+        .card-header { margin-bottom: 8px; }
+        .card-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 4px 8px; border: var(--border-width) solid var(--border-color); text-transform: uppercase; }
+        .card-red .card-tag { background-color: var(--accent-primary); }
+        .card-yellow .card-tag { background-color: var(--accent-yellow); }
+        .card-blue .card-tag { background-color: var(--accent-blue); }
+        .card-green .card-tag { background-color: var(--accent-green); }
+        
+        .card-body h3 { font-size: 15px; margin-bottom: 5px; font-weight: 700; }
+        .card-body p { font-size: 13px; line-height: 1.5; }
+        
+        .card-footer { display: flex; align-items: center; gap: 15px; margin-top: 12px; font-size: 12px; font-weight: 700; }
+        .card-footer-item { display: flex; align-items: center; gap: 5px; }
+        /* ИЗМЕНЕНИЕ ДЛЯ БЛОКА О */
+        .test-card.completed {
+            background-color: var(--accent-green);
+        }
+
+        @media (max-width: 1200px) { .schedule-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 992px) {
+            .page-wrapper { display: block; }
+            .sidebar { display: none; }
+            .main-content { width: 100%; margin-left: 0; padding: 15px; }
+            .filters, .page-title-header { flex-direction: column; align-items: stretch; gap: 15px; }
+            .schedule-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header"><img src="https://storage.yandexcloud.net/s.mierasoft.com/media/logo_color.svg" alt="Merasoft Logo"></div>
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active" onclick="showInfo('График')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8a6 6 0 0 0-8.4 0L4 14"/></svg>График</a></li>
+                    <li><a href="#" onclick="showInfo('Все тесты')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Все тесты</a></li>
+                    <li><a href="#" onclick="showInfo('Мои тесты')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4"></rect></svg>Мои тесты</a></li>
+                    <li><a href="#" onclick="showInfo('Шаблоны тестов')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>Шаблоны тестов</a></li>
+                    <li><a href="#" onclick="showInfo('Расписание')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="6" width="8" height="2"></rect><rect x="8" y="11" width="8" height="2"></rect><rect x="8" y="16" width="4" height="2"></rect><path d="M5 4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4z"></path></svg>Расписание</a></li>
+                    <li><a href="#" onclick="showInfo('Рассылки')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Рассылки</a></li>
+                    <li><a href="#" onclick="showInfo('Отчеты')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Отчеты</a></li>
+                    <li><a href="https://www.pornhub.com" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>Компания</a></li>
+                    <li><a href="#" onclick="showInfo('Лекции и справки')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>Лекции и справки</a></li>
+                </ul>
+            </div>
+            <div class="ad-container">
+                 <div class="ad-block">
+                    <p class="ad-title">30-ДНЕВНЫЙ КУРС ПО 3D ГРАФИКЕ!</p>
+                    <a href="#" onclick="alert('Переход на exeloncourse.com')" class="ad-link">exeloncourse.com</a>
+                </div>
+                 <div class="ad-block">
+                    <p class="ad-title">ОБУЧИСЬ ОРАТОРСКОМУ МАСТЕРСТВУ</p>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="user-profile">
+                    <svg onclick="alert('Справка')" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                    <svg onclick="alert('Выход')" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3H19a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H15"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                </div>
+            </header>
+            
+            <div class="page-title-header">
+                <h1>ГРАФИК<span class="subtitle"> / Результаты / Итоги по вопросам</span></h1>
+                <div class="tabs">
+                    <div class="tab-item active" onclick="showInfo('Вкладка Расписание')">Расписание</div>
+                    <div class="tab-item" onclick="showInfo('Вкладка Результаты')">Результаты</div>
+                    <div class="tab-item" onclick="showInfo('Вкладка Избранное')">Избранное</div>
+                </div>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-item"><select><option>По времени</option></select></div>
+                <div class="filter-item"><select><option>Период не выбран</option></select></div>
+                <button class="action-btn" onclick="resetFilters()">Сбросить все &times;</button>
+                <button class="action-btn add" onclick="addTest()">+ Добавить тест</button>
+                <button class="action-btn" onclick="alert('Поиск...')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            </div>
+            
+            <div class="schedule-controls">
+                <a class="nav-week-btn" onclick="alert('Загрузка предыдущей недели')">&lt; предыдущая неделя</a>
+                <a class="nav-week-btn" onclick="alert('Загрузка следующей недели')">следующая неделя &gt;</a>
+            </div>
+
+            <div class="schedule-grid">
+                <div class="day-column">
+                    <div class="day-header">ПН, 17 МАРТА</div>
+                    <button class="add-test-btn" onclick="addTest()">+ Добавить тест</button>
+                    <div class="test-card card-red" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3><p>Вводный курс по программированию и основам основ, ознакомление...</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                     <div class="test-card card-blue" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">Менеджмент</span></div>
+                        <div class="card-body"><h3>Маркетинг часть 1</h3></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                    <div class="test-card completed card-red" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Длинный заголовок в одну строку</h3><p>Вводный курс по программированию и основам основ, ознакомление...</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Выполнен</div><div class="card-footer-item">100 баллов</div></div>
+                    </div>
+                </div>
+                <div class="day-column">
+                    <div class="day-header">ВТ, 18 МАРТА</div>
+                    <button class="add-test-btn" onclick="addTest()">+ Добавить тест</button>
+                    <div class="test-card card-red" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                     <div class="test-card card-yellow" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">Испанский</span></div>
+                        <div class="card-body"><h3>Тест по испанскому</h3><p>Определение уровня владения языка.</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                </div>
+                <div class="day-column">
+                    <div class="day-header">СР, 19 МАРТА</div>
+                    <button class="add-test-btn" onclick="addTest()">+ Добавить тест</button>
+                    <div class="test-card card-green" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">English</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3><p>Определение уровня владения языка.</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                </div>
+                <div class="day-column">
+                    <div class="day-header">ЧТ, 20 МАРТА</div>
+                    <button class="add-test-btn" onclick="addTest()">+ Добавить тест</button>
+                     <div class="test-card card-red" onclick="showInfo(this)">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3><p>Вводный курс по программированию...</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showInfo(element) {
+            let message;
+            if (typeof element === 'string') {
+                message = `Вы кликнули на: ${element}`;
+            } else {
+                const title = element.querySelector('h3').textContent;
+                message = `Выбран тест: "${title}"`;
+            }
+            alert(message);
+        }
+        function addTest() {
+            const testName = prompt("Введите название нового теста:", "Новый тест");
+            if (testName) {
+                alert(`Тест "${testName}" будет добавлен (демонстрация).`);
+            }
+        }
+        function resetFilters() {
+            if (confirm("Вы уверены, что хотите сбросить все фильтры?")) {
+                alert("Фильтры сброшены (демонстрация).");
+            }
+        }
+    </script>
+</body>
+</html>
