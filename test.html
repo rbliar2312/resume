@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Расписание [BRUTALIST EDITION]</title>
+    <title>Расписание</title>
     <style>
         /* --- ШРИФТЫ --- */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-        /* --- ПЕРЕМЕННЫЕ ДИЗАЙНА В СТИЛЕ БРУТАЛИЗМ --- */
+        /* --- ПЕРЕМЕННЫЕ ДИЗАЙНА (в стиле 16personalities.com) --- */
         :root {
-            --font-family: 'Roboto Mono', monospace;
-            --bg-main: #F0EFEA;
-            --text-primary: #000000;
-            --border-color: #000000;
-            --accent-primary: #FF007A; /* Ярко-розовый */
-            --accent-green: #00E86B;
-            --accent-yellow: #FFD600;
-            --hard-shadow: 4px 4px 0px var(--border-color);
-            --hard-shadow-sm: 2px 2px 0px var(--border-color);
-            --border-width: 2px;
-            --sidebar-width: 240px;
+            --font-family: 'Poppins', sans-serif;
+            --bg-main: #F8F9FA;
+            --bg-content: #FFFFFF;
+            --text-primary: #333742;
+            --text-secondary: #8C98A4;
+            --border-color: #E9ECEF;
+            --accent-primary: #24A893; /* Бирюзовый */
+            --accent-light: #E9F6F4;
+            --status-color: #BDBDBD;
+            --sidebar-width: 260px;
+            --card-border-radius: 12px;
+            --soft-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
         }
 
         /* --- ОБЩИЕ СТИЛИ --- */
@@ -28,43 +29,40 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            border-radius: 0 !important; /* Убираем все скругления */
         }
         body {
             font-family: var(--font-family);
             background-color: var(--bg-main);
             color: var(--text-primary);
             font-size: 14px;
-            font-weight: 500;
         }
         .page-wrapper {
             display: flex;
         }
 
-        /* --- БОКОВАЯ ПАНЕЛЬ --- */
+        /* --- БОКОВАЯ ПАНЕЛЬ НАВИГАЦИИ (SIDEBAR) --- */
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
-            background-color: var(--bg-main);
-            border-right: var(--border-width) solid var(--border-color);
+            background-color: var(--bg-content);
             position: fixed;
             top: 0;
             left: 0;
             display: flex;
             flex-direction: column;
             padding: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
         }
         .sidebar-header {
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
             padding: 10px 0;
-            border-bottom: var(--border-width) solid var(--border-color);
+            margin-bottom: 25px;
+        }
+        .sidebar-header img {
+            height: 24px;
         }
         .sidebar-nav {
             flex-grow: 1;
+            overflow-y: auto;
         }
         .sidebar-nav ul {
             list-style: none;
@@ -72,12 +70,13 @@
         .sidebar-nav li a {
             display: flex;
             align-items: center;
-            padding: 12px;
+            padding: 12px 15px;
             text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 700;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-radius: 8px;
             margin-bottom: 8px;
-            transition: none; /* Резкие переходы */
+            transition: background-color 0.2s, color 0.2s;
         }
         .sidebar-nav li a svg {
             margin-right: 12px;
@@ -85,171 +84,295 @@
             height: 20px;
         }
         .sidebar-nav li a:hover {
-            background-color: var(--accent-yellow);
+            color: var(--accent-primary);
         }
         .sidebar-nav li a.active {
             background-color: var(--accent-primary);
-            color: var(--text-primary);
+            color: #FFFFFF;
+        }
+        .ad-container {
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
         }
         .ad-block {
-            border: var(--border-width) solid var(--border-color);
+            background-color: var(--bg-main);
+            border-radius: var(--card-border-radius);
             padding: 15px;
             text-align: center;
             font-size: 12px;
-            margin-top: 20px;
-            box-shadow: var(--hard-shadow);
+            color: var(--text-secondary);
+            margin-bottom: 15px;
         }
-        .ad-block .ad-label { display: none; }
-        .ad-block img { height: 25px; margin-bottom: 10px; filter: grayscale(1); }
-        .ad-block p { font-weight: 700; margin-bottom: 10px; }
-        .ad-block a { display: none; }
-        .ad-block .ad-info { font-size: 9px; }
+        .ad-block .ad-label {
+            font-size: 10px;
+            color: #BDBDBD;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .ad-block img {
+            height: 30px;
+            margin-bottom: 10px;
+        }
+        .ad-block p {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
 
         /* --- ОСНОВНОЙ КОНТЕНТ --- */
         .main-content {
             margin-left: var(--sidebar-width);
             width: calc(100% - var(--sidebar-width));
-            padding: 30px;
+            padding: 30px 40px;
         }
+
+        /* --- ШАПКА КОНТЕНТА --- */
         .main-header {
             display: flex;
             justify-content: flex-end;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: var(--border-width) solid var(--border-color);
-            padding-bottom: 20px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         .user-profile img {
             width: 40px;
             height: 40px;
-            border: var(--border-width) solid var(--border-color);
+            border-radius: 50%;
+        }
+        .user-profile svg {
+            cursor: pointer;
+            color: var(--text-secondary);
         }
 
         .content-body {
-            background-color: var(--bg-main);
-            border: var(--border-width) solid var(--border-color);
-            padding: 20px;
-            box-shadow: var(--hard-shadow);
+            background-color: var(--bg-content);
+            border-radius: var(--card-border-radius);
+            padding: 25px 30px;
+            box-shadow: var(--soft-shadow);
         }
-        
-        /* --- ЭЛЕМЕНТЫ УПРАВЛЕНИЯ И ФИЛЬТРЫ --- */
-        .controls {
+
+        .breadcrumbs {
             display: flex;
-            align-items: flex-end;
-            gap: 15px;
-            margin: 20px 0;
-            padding-bottom: 20px;
-            border-bottom: var(--border-width) solid var(--border-color);
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
         }
-        .control-group label { font-weight: 700; text-transform: uppercase; font-size: 11px; margin-bottom: 8px; }
-        .control-element {
-            border: var(--border-width) solid var(--border-color);
-            background: #fff;
-            padding: 8px 12px;
-            font-weight: 500;
-            box-shadow: var(--hard-shadow-sm);
+        .breadcrumbs svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
         }
-        .control-element select, .control-element input {
-            border: none; background: transparent; outline: none; font-family: var(--font-family); font-weight: 500; font-size: 14px;
+        .breadcrumbs span {
+            margin: 0 5px;
         }
-        .control-element button {
-            background: var(--accent-yellow);
-            border: var(--border-width) solid var(--border-color);
-            padding: 8px 12px;
-            font-weight: 700;
-            box-shadow: var(--hard-shadow-sm);
-            cursor: pointer;
-        }
-        .control-element button:active { transform: translate(2px, 2px); box-shadow: none; }
-        .search-bar { flex-grow: 1; max-width: 250px; }
 
         /* --- ТАБЫ (ВКЛАДКИ) --- */
-        .tabs { display: flex; }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
         .tab-item {
-            padding: 10px 15px;
-            border: var(--border-width) solid var(--border-color);
-            border-bottom: none;
-            margin-right: 5px;
-            font-weight: 700;
+            display: flex;
+            align-items: center;
+            padding: 10px 5px;
+            margin: 0 15px -1px 0;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
             cursor: pointer;
-            background: #fff;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .tab-item svg {
+            margin-right: 8px;
         }
         .tab-item.active {
-            background: var(--accent-primary);
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+        .tab-item:hover {
+            color: var(--accent-primary);
         }
 
-        /* --- СПИСОК РАСПИСАНИЯ --- */
-        .schedule-table-header { display: none; } /* Убираем заголовки таблицы для простоты */
-        .date-group-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 30px 0 15px 0;
-            padding-bottom: 5px;
-            border-bottom: var(--border-width) solid var(--border-color);
+        /* --- ФИЛЬТРЫ И УПРАВЛЕНИЕ --- */
+        .schedule-header h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
         }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .control-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .control-element {
+            display: flex;
+            align-items: center;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 500;
+        }
+        .control-element select {
+            border: none; background: transparent; outline: none; font-family: var(--font-family); font-weight: 500; font-size: 14px; -webkit-appearance: none; appearance: none;
+        }
+        .control-element svg {
+            margin-right: 8px; color: var(--text-secondary);
+        }
+        .control-element input[type="text"] {
+            border: none; background: transparent; outline: none; font-family: var(--font-family); width: 100%;
+        }
+        .add-period-btn { color: var(--accent-primary); cursor: pointer; font-weight: 600; }
+        .search-bar { flex-grow: 1; max-width: 250px; }
+
+        /* --- СПИСОК РАСПИСАНИЯ --- */
+        .schedule-table-header {
+            display: grid;
+            grid-template-columns: 100px 1fr 100px 120px 80px 120px;
+            gap: 15px;
+            padding: 0 20px 15px 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .schedule-item {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: 100px 1fr 100px 120px 80px 120px;
             align-items: center;
-            background: #fff;
-            border: var(--border-width) solid var(--border-color);
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: var(--hard-shadow);
+            gap: 15px;
+            background: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-border-radius);
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .schedule-item:hover {
+            box-shadow: var(--soft-shadow);
+            transform: translateY(-2px);
+        }
+        .item-date {
+            font-weight: 600;
         }
         .item-title .tag {
             font-size: 10px;
             font-weight: 700;
-            padding: 4px 8px;
-            color: var(--text-primary);
-            background-color: var(--accent-yellow);
-            display: inline-block;
-            margin-bottom: 8px;
-            border: var(--border-width) solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: var(--accent-primary);
+            background-color: var(--accent-light);
+            margin-left: 8px;
         }
-        .item-title p { line-height: 1.5; font-weight: 500; }
-        .item-info { text-align: center; }
-        .item-info span { display: block; }
-        .item-info .label { font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
-        .item-score { font-size: 20px; font-weight: 700; }
+        .item-title p {
+            margin-top: 5px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+        .item-time {
+            background: var(--bg-main);
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .item-status {
+            display: flex;
+            align-items: center;
+            color: var(--status-color);
+            font-weight: 600;
+        }
+        .item-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--status-color);
+            margin-right: 8px;
+        }
+        .item-score {
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
+        }
         .item-action .btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
+            border: none;
             background: var(--accent-primary);
-            border: var(--border-width) solid var(--border-color);
-            font-weight: 700;
-            font-size: 14px;
-            box-shadow: var(--hard-shadow-sm);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: var(--font-family);
             cursor: pointer;
+            transition: background-color 0.2s;
         }
-        .item-action .btn:active { transform: translate(2px, 2px); box-shadow: none; }
-        
+        .item-action .btn:hover {
+            background-color: #1f917f;
+        }
+
         /* --- ПАГИНАЦИЯ --- */
         .pagination {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 30px;
         }
         .pagination-btn {
-            padding: 10px 20px;
-            border: var(--border-width) solid var(--border-color);
-            background: #fff;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
             text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 700;
-            box-shadow: var(--hard-shadow-sm);
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
         }
-        .pagination-btn:active { transform: translate(2px, 2px); box-shadow: none; }
+        .pagination-btn:hover {
+            color: var(--accent-primary);
+        }
 
         /* --- АДАПТИВНОСТЬ --- */
+        @media (max-width: 1200px) {
+            .schedule-table-header, .schedule-item {
+                grid-template-columns: 80px 1fr 80px 100px 60px 100px;
+                gap: 10px;
+            }
+        }
         @media (max-width: 992px) {
             .page-wrapper { display: block; }
             .sidebar { display: none; }
-            .main-content { width: 100%; margin-left: 0; padding: 15px; }
-            .controls { flex-direction: column; align-items: stretch; }
+            .main-content {
+                width: 100%;
+                margin-left: 0;
+                padding: 15px;
+            }
+            .controls { flex-wrap: wrap; }
             .search-bar { max-width: 100%; }
-            .schedule-item { grid-template-columns: 1fr; text-align: center; }
+            .schedule-table-header { display: none; }
+            .schedule-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            .item-status { justify-content: center; }
         }
     </style>
 </head>
@@ -257,27 +380,27 @@
 
     <div class="page-wrapper">
         <nav class="sidebar">
-            <div class="sidebar-header">MERASOFT®</div>
+            <div class="sidebar-header">
+                <img src="https://storage.yandexcloud.net/s.mierasoft.com/media/logo_color.svg" alt="Merasoft Logo">
+            </div>
             <div class="sidebar-nav">
                 <ul>
-                    <li><a href="#" class="active">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8a6 6 0 0 0-8.4 0L4 14"/><path d="M12.4 14.1a2 2 0 0 1 2.8 0L19 20"/></svg>
-                        График</a></li>
-                    <li><a href="#">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                        Все тесты</a></li>
-                    <li><a href="#">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4"></rect></svg>
-                        Мои тесты</a></li>
-                    <li><a href="#">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        Шаблоны</a></li>
+                    <li><a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8a6 6 0 0 0-8.4 0L4 14"/><path d="M12.4 14.1a2 2 0 0 1 2.8 0L19 20"/></svg>График</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Все тесты</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>Мои тесты</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>Шаблоны тестов</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Рассылки</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Отчеты</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="21" width="18" height="0"></rect><path d="M5.23 15.36a3.2 3.2 0 0 1-1.2-4.81l2.4-3.15A3.2 3.2 0 0 1 8.7 5.75l.18.06a3.2 3.2 0 0 1 4.28 1.43l1.86 3.1a3.2 3.2 0 0 1-1.38 4.71l-2.28 1.1a3.2 3.2 0 0 1-4.14-1.18Z"></path><path d="m15.5 15.5 2.5 3.3a3.2 3.2 0 0 0 4.8-1.3l.1-.2a3.2 3.2 0 0 0-1.3-4.8l-3.3-2.5"></path></svg>Компания</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>Лекции и справки</a></li>
                 </ul>
             </div>
-            <div class="ad-block">
-                <p>КУРС ПО УПРАВЛЕНИЮ ПЕРСОНАЛОМ</p>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Skolkovo_logo_2017_rus_black.svg/2560px-Skolkovo_logo_2017_rus_black.svg.png" alt="Skolkovo Logo">
-                <div class="ad-info">РЕКЛАМА / ИНН: 38476378469</div>
+            <div class="ad-container">
+                <div class="ad-block">
+                    <span class="ad-label">Реклама</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Skolkovo_logo_2017_rus_black.svg/2560px-Skolkovo_logo_2017_rus_black.svg.png" alt="Skolkovo Logo">
+                    <p>Курс по управлению персоналом</p>
+                </div>
             </div>
         </nav>
 
@@ -285,125 +408,115 @@
             <header class="main-header">
                 <div class="user-profile">
                     <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.7893 20.7893 19.5304 21 19 21H15M8 17L13 12L8 7M13 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
             </header>
 
-            <div class="tabs">
-                <div class="tab-item active">РАСПИСАНИЕ</div>
-                <div class="tab-item">РЕЗУЛЬТАТЫ</div>
-                <div class="tab-item">ИЗБРАННОЕ</div>
-            </div>
-            
             <div class="content-body">
-                <h1>РАСПИСАНИЕ</h1>
+                <div class="breadcrumbs">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    График <span>/</span> <b>Расписание</b>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab-item active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 6H21M8 12H21M8 18H21M3 6H3.01M3 12H3.01M3 18H3.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Расписание</div>
+                    <div class="tab-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 3H14C14.5304 3 15.0391 3.21071 15.4142 3.58579C15.7893 3.96086 16 4.46957 16 5V21L12 18L8 21V5C8 4.46957 8.21071 3.96086 8.58579 3.58579C8.96086 3.21071 9.46957 3 10 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Результаты</div>
+                    <div class="tab-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Избранное</div>
+                </div>
+
+                <div class="schedule-header">
+                    <h1>Расписание</h1>
+                </div>
+
                 <div class="controls">
                     <div class="control-group">
-                        <label>СОРТИРОВКА</label>
-                        <div class="control-element">
-                            <select><option>ПО ВРЕМЕНИ</option></select>
-                        </div>
+                        <label>Сортировка</label>
+                        <div class="control-element"><select><option>По времени</option></select></div>
                     </div>
                     <div class="control-group">
-                        <label>ФИЛЬТР</label>
-                        <div class="control-element">02.12.24–08.12.24 X</div>
+                        <label>Фильтр</label>
+                        <div class="control-element"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V3M16 7V3M3 11H21M5 5H19C20.1046 5 21 5.89543 21 7V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V7C3 5.89543 3.89543 5 5 5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 02.12.24–08.12.24 &times;</div>
                     </div>
-                    <div class="control-group">
-                        <label>&nbsp;</label>
-                        <button>+ ДОБАВИТЬ</button>
+                    <div class="add-period-btn">+ Добавить период</div>
+                    <div class="search-bar control-element">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <input type="text" placeholder="Поиск...">
                     </div>
-                    <div class="search-bar">
-                         <div class="control-group">
-                            <label>&nbsp;</label>
-                            <div class="control-element">
-                               <input type="text" placeholder="ПОИСК...">
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                
+                <div class="schedule-table-header">
+                    <div>Дата</div><div>Название</div><div>Время</div><div>Статус</div><div>Баллы</div><div></div>
                 </div>
 
                 <div class="schedule-list">
-                    <div class="date-group">
-                        <div class="date-group-title">ПН, 9 ДЕКАБРЯ</div>
-                        <div class="schedule-item">
-                            <div class="item-title">
-                                <span class="tag" style="background-color: var(--accent-primary);">МЕНЕДЖМЕНТ</span>
-                                <p>Вводный курс по маркетингу и основам продвижения SMM, а также по английскому и испанскому.</p>
-                            </div>
-                            <div class="item-info">
-                                <span class="label">ВРЕМЯ</span>
-                                <span>30 мин</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">СТАТУС</span>
-                                <span>Не начат</span>
-                            </div>
-                            <div class="item-action"><button class="btn">ПРОЙТИ ТЕСТ</button></div>
+                    <div class="schedule-item">
+                        <div class="item-date">Пн, 9 дек.</div>
+                        <div class="item-title">
+                            <b>Вводный курс по маркетингу</b> <span class="tag">МЕНЕДЖМЕНТ</span>
+                            <p>...и основам продвижения SMM, а также по английскому</p>
                         </div>
-                        <div class="schedule-item">
-                            <div class="item-title">
-                                <span class="tag" style="background-color: var(--accent-green);">ПРОГРАММИРОВАНИЕ</span>
-                                <p>Вводный курс по маркетингу и основам продвижения SMM.</p>
-                            </div>
-                            <div class="item-info">
-                                <span class="label">ВРЕМЯ</span>
-                                <span>10 мин</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">СТАТУС</span>
-                                <span>Не начат</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">БАЛЛЫ</span>
-                                <span class="item-score">88</span>
-                            </div>
-                        </div>
+                        <div class="item-time">30 мин</div>
+                        <div class="item-status"><span class="dot"></span>Не начат</div>
+                        <div class="item-score">-</div>
+                        <div class="item-action"><button class="btn">Пройти тест</button></div>
                     </div>
-
-                    <div class="date-group">
-                        <div class="date-group-title">ВТ, 10 ДЕКАБРЯ</div>
-                        <div class="schedule-item">
-                            <div class="item-title">
-                                <span class="tag" style="background-color: var(--accent-green);">ПРОГРАММИРОВАНИЕ</span>
-                                <p>Вводный курс по маркетингу и основам продвижения SMM, а также по английскому и испанскому.</p>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">ВРЕМЯ</span>
-                                <span>15 мин</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">СТАТУС</span>
-                                <span>Не начат</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">БАЛЛЫ</span>
-                                <span class="item-score">88</span>
-                            </div>
+                    <div class="schedule-item">
+                        <div class="item-date"></div>
+                        <div class="item-title">
+                            <b>Вводный курс по маркетингу</b> <span class="tag">МЕНЕДЖМЕНТ</span>
+                            <p>...и основам продвижения SMM, а также по английскому</p>
                         </div>
-                        <div class="schedule-item">
-                            <div class="item-title">
-                                <span class="tag" style="background-color: var(--accent-yellow);">ENGLISH</span>
-                                <p>Вводный курс по маркетингу и основам продвижения SMM, а также по английскому и испанскому.</p>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">ВРЕМЯ</span>
-                                <span>15 мин</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">СТАТУС</span>
-                                <span>Не начат</span>
-                            </div>
-                             <div class="item-info">
-                                <span class="label">БАЛЛЫ</span>
-                                <span class="item-score">88</span>
-                            </div>
+                        <div class="item-time">30 мин</div>
+                        <div class="item-status"><span class="dot"></span>Не начат</div>
+                        <div class="item-score">-</div>
+                        <div class="item-action"><button class="btn">Пройти тест</button></div>
+                    </div>
+                     <div class="schedule-item">
+                        <div class="item-date"></div>
+                        <div class="item-title">
+                            <b>Программирование на Питоне</b> <span class="tag">ПРОГРАММИРОВАНИЕ</span>
+                            <p>Вводный курс по маркетингу и основам продвижения SMM</p>
                         </div>
+                        <div class="item-time">10 мин</div>
+                        <div class="item-status"><span class="dot"></span>Не начат</div>
+                        <div class="item-score">88</div>
+                        <div class="item-action"></div>
+                    </div>
+                     <div class="schedule-item">
+                        <div class="item-date">Вт, 10 дек.</div>
+                        <div class="item-title">
+                            <b>Программирование на Питоне</b> <span class="tag">ПРОГРАММИРОВАНИЕ</span>
+                            <p>Вводный курс по маркетингу и основам продвижения SMM</p>
+                        </div>
+                        <div class="item-time">15 мин</div>
+                        <div class="item-status"><span class="dot"></span>Не начат</div>
+                        <div class="item-score">88</div>
+                        <div class="item-action"></div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="item-date"></div>
+                        <div class="item-title">
+                            <b>English Course</b> <span class="tag">ENGLISH</span>
+                            <p>Вводный курс по маркетингу и SMM</p>
+                        </div>
+                        <div class="item-time">15 мин</div>
+                        <div class="item-status"><span class="dot"></span>Не начат</div>
+                        <div class="item-score">88</div>
+                        <div class="item-action"></div>
                     </div>
                 </div>
 
                 <div class="pagination">
-                    <a href="#" class="pagination-btn">&lt; ПРЕДЫДУЩАЯ</a>
-                    <a href="#" class="pagination-btn">СЛЕДУЮЩАЯ &gt;</a>
+                    <a href="#" class="pagination-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;"><path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        предыдущая неделя
+                    </a>
+                    <a href="#" class="pagination-btn">
+                        следующая неделя
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px;"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
                 </div>
+
             </div>
         </main>
     </div>
