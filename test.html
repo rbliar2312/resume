@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алексей Ли | Портфолио</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter, sans-serif' font-size='50' font-weight='bold' fill='%2300ff99'%3EЛИ%3C/text%3E%3C/svg%3E">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-accent: #00ff99;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-headings: #ffffff;
+            --border-color: #333333;
+            --sidebar-width: 240px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+        .main-content { margin-left: var(--sidebar-width); }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 40px; }
+        h1, h2, h3, h4 { color: var(--text-headings); font-weight: 700; }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-accent);
+        }
+        section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
+        section:last-of-type { border-bottom: none; }
+        a { color: var(--primary-accent); text-decoration: none; }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            z-index: 1000;
+        }
+        .sidebar-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-headings);
+            margin-bottom: 60px;
+        }
+        .sidebar-logo span { color: var(--primary-accent); }
+        .sidebar-nav { list-style: none; width: 100%; }
+        .sidebar-nav li { margin-bottom: 25px; }
+        .sidebar-nav a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: color 0.3s, background-color 0.3s;
+        }
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            color: var(--text-headings);
+            background-color: rgba(0, 255, 153, 0.1);
+        }
+
+        /* Hero Section */
+        #hero { min-height: 100vh; display: flex; align-items: center;}
+        .hero-text .main-title { font-size: 3rem; margin-bottom: 15px; line-height: 1.2; }
+        .hero-text .subtitle { font-size: 1.1rem; font-weight: 500; color: var(--primary-accent); margin-bottom: 30px; letter-spacing: 0.5px; }
+        .hero-text p { color: var(--text-secondary); margin-bottom: 15px; max-width: 650px; }
+        .hero-intro { display: flex; align-items: flex-start; gap: 30px; }
+        .hero-photo { flex-shrink: 0; }
+        .hero-photo img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-accent);
+            object-fit: cover;
+        }
+
+        /* Projects Section */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .project-card {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 10px 30px rgba(0, 255, 153, 0.1);
+        }
+        .project-image { height: 200px; background-size: cover; background-position: center; }
+        .project-info { padding: 20px; }
+        .project-info h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .project-tags { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .project-tags span {
+            background: transparent;
+            border: 1px solid var(--primary-accent);
+            color: var(--primary-accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Skills Slider */
+        .skills-slider-wrapper { margin-top: 60px; }
+        .skills-slider { display: flex; overflow-x: auto; gap: 12px; padding: 10px; scrollbar-width: none; }
+        .skills-slider::-webkit-scrollbar { display: none; }
+        .skills-slider li {
+            list-style-type: none;
+            background-color: var(--surface-color);
+            color: var(--text-primary);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Experience Section */
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            bottom: 5px;
+            width: 3px;
+            background-color: var(--border-color);
+        }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary-accent);
+            border: 3px solid var(--bg-color);
+        }
+        .timeline-content {
+            background-color: var(--surface-color);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+        .timeline-content h3 { font-size: 1.3rem; }
+        .timeline-content .date { font-size: 0.9rem; color: var(--primary-accent); font-weight: bold; margin: 5px 0 10px; }
+        .timeline-content .company { font-style: italic; color: var(--text-secondary); margin-bottom: 0; }
+        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, margin-top 0.5s ease-out; margin-top: 0; color: var(--text-secondary); }
+        .timeline-content.open .collapsible-content { max-height: 1000px; margin-top: 20px; }
+        .collapsible-content h4 { font-size: 1rem; margin-top: 15px; margin-bottom: 10px; color: var(--text-headings); }
+        .collapsible-content ul { list-style-position: inside; padding-left: 5px; }
+
+        /* Contact Section */
+        #contact { text-align: center; }
+        .contact-phone a { font-size: 2rem; font-weight: 500; color: var(--text-headings); display: block; margin-bottom: 40px; }
+        .contact-links { display: flex; justify-content: center; gap: 25px; }
+        .contact-links a { color: var(--text-secondary); transition: color 0.3s, transform 0.3s; }
+        .contact-links a:hover { color: var(--primary-accent); transform: translateY(-3px); }
+        .contact-links svg { width: 32px; height: 32px; fill: currentColor; }
+
+        /* Modal */
+        .modal-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:2000;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease}.modal-backdrop.open{display:flex;opacity:1}.modal-content{background:var(--surface-color);border-radius:8px;padding:30px;max-width:700px;width:90%;max-height:90vh;overflow-y:auto;position:relative; border: 1px solid var(--border-color);}.modal-close{position:absolute;top:15px;right:20px;font-size:2.5rem;color:#95a5a6;cursor:pointer;line-height:1; transition: color 0.3s;}.modal-close:hover{color: var(--primary-accent);}
+        .modal-image-container{width:100%;height:350px;border-radius:8px;margin-bottom:20px;overflow:hidden;position:relative}.modal-image-slider{display:flex;height:100%;transition:transform .4s ease-in-out}.modal-image{flex-shrink:0;width:100%;height:100%;background-size:cover;background-position:center}.modal-nav{display:none}.modal-nav-btn{position:absolute;top:50%;transform:translateY(-50%);background-color:rgba(30,30,30,.7);color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:24px;cursor:pointer}#modal-prev-btn{left:10px}#modal-next-btn{right:10px}
+        .modal-content h3{font-size:1.8rem;margin-bottom:15px}.modal-content .highlight{font-weight:700;color:var(--primary-accent)}
+        .modal-content a {color: var(--primary-accent); text-decoration: underline; font-weight: 500;}
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            :root { --sidebar-width: 0; }
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .container { padding: 0 20px; }
+            .project-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            h2 { font-size: 2rem; }
+            #hero { text-align: center; padding-top: 80px; padding-bottom: 80px; min-height: auto; }
+            .hero-intro { flex-direction: column; align-items: center; }
+            .hero-photo img { width: 150px; height: 150px; }
+            .hero-text .main-title { font-size: 2.2rem; }
+            .timeline { padding-left: 20px; }
+            .timeline-item::before { left: -26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-logo">Алексей<span>.</span></div>
+        <ul class="sidebar-nav">
+            <li><a href="#hero">Обо мне</a></li>
+            <li><a href="#projects">Проекты</a></li>
+            <li><a href="#experience">Опыт</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <main>
+            <section id="hero">
+                <div class="container">
+                    <div class="hero-intro">
+                        <div class="hero-photo">
+                             <img src="resume/image/myfoto.jpg" alt="Фото Алексея Ли">
+                        </div>
+                        <div class="hero-text">
+                            <h1 class="main-title">Руководитель по развитию клиентской службы и проектов</h1>
+                            <p class="subtitle">Project manager | Операционный менеджер | Бизнес-аналитик | Промпт-инженер</p>
+                        </div>
+                    </div>
+                    <p>Соединяю бизнес и технические решения. Делаю так, чтобы процессы работали эффективно и приносили результат. Имея опыт руководства большими командами в банковской сфере, я глубоко понимаю, как устроен клиентский сервис изнутри — с его проблемами и возможностями.</p>
+                    <p>Мой подход — не в использовании конкретного ПО, а в достижении цели с помощью доступных и наиболее эффективных на данный момент инструментов. Будь то продвинутый Excel, внутренние системы компании или современные нейросети для создания прототипов.</p>
+                    <p>На практике это вылилось в проекты по запуску ИИ-анализа звонков, созданию дашбордов, которые реально помогают принимать решения, и разработку ботов для автоматизации рутины. Я хорошо нахожу общий язык и с линейными сотрудниками, и с аналитиками, и со стратегами, и с разработчиками, потому что понимаю цели каждой из сторон.</p>
+                    <p>Буду полезен там, где нужен человек, способный не только увидеть проблему, но и самостоятельно найти и реализовать ее решение, не усложняя процесс.</p>
+                </div>
+            </section>
+
+            <section id="projects">
+                <div class="container">
+                    <h2>Избранные проекты</h2>
+                    <div class="project-grid">
+                        <div class="project-card" data-title="Внедрение ИИ для оценки звонков" data-desc="В роли PM с командой аналитиков и ML инженеров инициировал и запустил проект по внедрению ИИ в процесс оценки звонков с целью повышения качества у операторов и экономии средств на агентах контроля качества.<br><br><span class='highlight'>Рост эффективности оценки звонков на 428%.</span><br>Проект выиграл малый кубок в конкрусе проектов Лига Достижений в 2024." data-img="resume/image/prozvoni1.jpg,resume/image/prozvoni2.jpg,resume/image/prozvoni3.jpg,resume/image/prozvoni4.jpg">
+                            <div class="project-image" style="background-image: url('resume/image/prozvoni1.jpg');"></div>
+                            <div class="project-info"><h3>Внедрение ИИ для оценки звонков</h3><div class="project-tags"><span>Project Management</span><span>AI/ML</span></div></div>
+                        </div>
+                        <div class="project-card" data-title="Интерактивный дашборд" data-desc="Написан с нуля с помощью нейросети на html css js. Зашит в Web App телеграм: когда сотрудник открывает страницу, по id телеграма страница берет данные именно этого сотрудника из supabase, туда данные отправляются из гугл таблицы с помощью apps script.<br><br><span class='highlight'>Повысил вовлеченность сотрудников и прозрачность метрик, инструмент для контроля показателей.</span><br><a href='https://aleksei23122012.github.io/DMdashbordbot/conc/conc.html' target='_blank'>Посмотреть тестовую страницу</a>" data-img="resume/image/dash4.jpg,resume/image/dash1.jpg,resume/image/dash2.jpg,resume/image/dash3.jpg">
+                            <div class="project-image" style="background-image: url('resume/image/dash4.jpg');"></div>
+                            <div class="project-info"><h3>Интерактивный дашборд</h3><div class="project-tags"><span>HTML/CSS/JS</span><span>Apps Script</span><span>SQL</span></div></div>
+                        </div>
+                        <div class="project-card" data-title="Оптимизация системы автодозвона" data-desc="Внедрил ряд доработок в систему автодозвона банка в роли PM/аналитика/дизайнера. В рамках этого проекта также занимался озвучкой, и частично оператором и монтажером видео (для презентации проекта стейкхолдерам).<br><br><span class='highlight'>Принесли банку 1,8 млрд. рублей годового дохода и экономит 132 тыс. ч.ч.</span><br>Проект выиграл номинацию в финале конкурса проектов Лига Достижений в 2023." data-img="resume/image/dailer1.jpg,resume/image/dailer2.jpg">
+                            <div class="project-image" style="background-image: url('resume/image/dailer1.jpg');"></div>
+                            <div class="project-info"><h3>Оптимизация автодозвона</h3><div class="project-tags"><span>Project Management</span><span>Анализ данных</span></div></div>
+                        </div>
+                        <div class="project-card" data-title="Динамическая отработка возражений" data-desc="Создал Telegram-бота для тренировки и быстрой навигации по скриптам отработки возражений. Данные для бота берутся из Supabase, куда отправляются через Apps Script из гугл таблиц, что позволяет легко вносить корректировки в возражения и менять их списки.<br><br><span class='highlight'>Ускорил адаптацию новых сотрудников для улучшения ситуации с текучкой кадров в КЦ.</span><br><a href='https://aleksei23122012.github.io/DMdashbordbot/ov/ov.html' target='_blank'>Посмотреть тестовую страницу</a>" data-img="resume/image/ov1.jpg,resume/image/ov2.jpg,resume/image/ov3.jpg">
+                            <div class="project-image" style="background-image: url('resume/image/ov1.jpg');"></div>
+                            <div class="project-info"><h3>Динамическая отработка возражений</h3><div class="project-tags"><span>Telegram Bot</span><span>Python</span><span>Supabase</span></div></div>
+                        </div>
+                    </div>
+                    <div class="technologies-showcase">
+                        <div class="skills-slider-wrapper">
+                            <div class="skills-slider">
+                                <li>Нейронные сети</li><li>Apps Script</li><li>Python</li><li>SQL</li><li>HTML/CSS/JS</li><li>Telegram WebApp</li><li>DataLens</li><li>MS Office</li><li>Google Docs</li><li>Pyrus</li><li>CRM</li><li>Oracle</li><li>RBS</li><li>BAT</li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="experience">
+                <div class="container">
+                    <h2>Опыт работы</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Руководитель отдела</h3>
+                                <div class="date">Март 2025 - Авг 2025</div>
+                                <div class="company">Franch Broker</div>
+                                <div class="collapsible-content">
+                                    <h4>Обязанности:</h4><ul><li>Аудит бизнес-процессов и предложения по улучшению.</li><li>Разрабатывать и внедрять проекты.</li><li>Курировать техническую группу.</li><li>Контроль за выполнением KPI группы.</li><li>Решение кадровых вопросов.</li><li>Работа с отчётностью, ее создание, анализ.</li></ul>
+                                    <h4>Достижения:</h4><ul><li>Описал и изменил ряд БП.</li><li>Создал интерактивный дашборд с помощью гугл таблиц и АПИ манго.</li><li>Создал бот по отработке возражений учитывая специфику бизнеса и орг структуру.</li><li>Нашел бесплатную платформу и создал с нуля базу знаний на ней.</li><li>Создал единного консьерж-бота на телеграме с широким функционалом для сотрудников и руководителей.</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Руководитель направления / PM</h3>
+                                <div class="date">Сен 2021 — Дек 2024</div>
+                                <div class="company">Совкомбанк</div>
+                                <div class="collapsible-content">
+                                    <h4>Обязанности:</h4><ul><li>Управлял портфелем проектов, направленных на оптимизацию бизнес-процессов и повышение доходности.</li><li>Повысил прозрачность и управляемость KPI через создание и автоматизацию системы отчетности.</li><li>Руководил направлением по звонкам в северо-западной дирекции (400+ сотрудников).</li><li>Оптимизировал работу КЦ через технологические проекты.</li><li>Выстроил комплексную систему работы с эффективностью направления.</li><li>Занимался разработкой, запуском и продажей проектов топ-менеджменту.</li><li>Активно сотрудничал со смежными подразделениями.</li></ul>
+                                    <h4>Достижения:</h4><ul><li>Трижды лучший сотрудник БЭКа месяца в 2023.</li><li>Лучший сотрудник 3 квартала.</li><li>В "Лиге Достижений" 2023: 1 место на региональной сессии и участник номинации в финале.</li><li>Малый кубок на региональной сессии в 2024 в качестве капитана.</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Руководитель группы</h3>
+                                <div class="date">Сен 2019 — Сен 2021</div>
+                                <div class="company">Совкомбанк</div>
+                                <div class="collapsible-content">
+                                    <h4>Обязанности:</h4><ul><li>Контроль за выполнением KPI группы и решение кадровых вопросов.</li><li>Работа с отчётностью, ее создание, анализ.</li><li>Обучение сотрудников (от новых до руководителей).</li><li>Непрофильная помощь смежным отделам.</li><li>Создал команду с нуля и вырастил ее до крупнейшей в подразделении.</li></ul>
+                                    <h4>Достижения:</h4><ul><li>Лучшая группа за 2020 по ключевым показателям.</li><li>Помощь в создании системы премирования для всего КЦ и обучение ей.</li><li>Взращивание людей на руководящие должности.</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Специалист отдела поддержки</h3>
+                                <div class="date">Март 2019 — Сен 2019</div>
+                                <div class="company">Совкомбанк</div>
+                                <div class="collapsible-content">
+                                    <h4>Обязанности:</h4><ul><li>Обработка обращений клиентов в чате.</li><li>Прием и совершение звонков.</li><li>Обучение новых сотрудников.</li></ul>
+                                    <h4>Достижения:</h4><ul><li>Многократные победы во внутреннем конкурсе "Живое общение".</li><li>Самый быстрый карьерный рост в управлении.</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <div class="container">
+                    <h2>Контакты</h2>
+                    <div class="contact-phone">
+                        <a href="tel:+79133899230">+7 913 389 92 30</a>
+                    </div>
+                    <div class="contact-links">
+                       <a href="mailto:rbliar@yandex.ru" title="Email">
+                           <svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
+                       </a>
+                       <a href="https://t.me/Aleksei_Li_Radievich" target="_blank" title="Telegram">
+                           <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.28 1.13-1.04 1.4-1.74.88L14.25 16l-4.12 3.85c-.79.71-1.2.33-1.35-.6z"></path></svg>
+                       </a>
+                       <a href="https://wa.me/79133899230" target="_blank" title="WhatsApp">
+                            <svg viewBox="0 0 24 24"><path d="M19.1 4.9C17.2 3 14.7 2 12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.3-1.4c1.5.8 3.2 1.3 5.1 1.3h.1c5.5 0 9.9-4.5 9.9-9.9c0-2.8-1.1-5.3-2.9-7.2zm-7.1 15.2c-1.7 0-3.3-.5-4.6-1.5l-.3-.2l-3.4 1l1-3.3l-.2-.3c-1-1.3-1.6-2.9-1.6-4.6c0-4.4 3.6-8 8-8c2.2 0 4.2.9 5.7 2.3c1.5 1.5 2.3 3.5 2.3 5.7c0 4.4-3.6 8-8 8zm4.4-5.3c-.2-.1-.9-.4-1-.5c-.1-.1-.2-.1-.3.1c-.1.2-.4.5-.5.6c-.1.1-.2.1-.4 0c-.2-.1-.8-.3-1.5-.9c-.6-.5-1-1.1-1.1-1.3c-.1-.2 0-.3.1-.4c.1 0 .2-.2.3-.3c.1-.1.1-.2.2-.3c.1-.1.1-.2 0-.3c0-.1-.3-.8-.4-1c-.1-.3-.2-.2-.3-.2h-.3c-.1 0-.3 0-.4.1c-.1.1-.5.5-.5 1.1c0 .7.5 1.3.6 1.4c.1.1.9 1.5 2.3 2c.3.1.5.2.7.3c.5.2.9.1 1.2.1c.3-.1.9-.4 1-.7c.1-.3.1-.6 0-.7c0-.1-.1-.1-.2-.2z"></path></svg>
+                       </a>
+                       <a href="https://spb.hh.ru/resume/089a31b1ff0f3c9ba60039ed1f6362706b6234" target="_blank" title="Резюме на HH.ru">
+                            <svg viewBox="0 0 48 48"><path d="M15.5 15.4h5.2v5.1h-5.2zM27.3 15.4h5.2v17.2h-5.2zM15.5 25.6h5.2v7h-5.2z" fill="#D6001C"></path><path d="M38 9.3H10c-1.7 0-3 1.4-3 3v23.3c0 1.7 1.4 3 3 3h28c1.7 0 3-1.4 3-3V12.3c0-1.7-1.4-3-3-3zm-25.5 26h-2c-1.1 0-2-.9-2-2V15.4c0-1.1.9-2 2-2h8.1c1.1 0 2 .9 2 2V21h-2v-5.6h-6.1v5.1H15v-5.1h-2.5v12.1H15v-2h2.5v7H12.5v-2.5h-2.5v3.1c0 1.4-1.1 2.5-2.5 2.5zm11-13.9c0-1.1.9-2 2-2h8.1c1.1 0 2 .9 2 2v11.9c0 1.1-.9 2-2 2h-8.1c-1.1 0-2-.9-2-2V21.4zm8.1 11.9h-6.1V21.4h6.1v11.9z" fill="#D6001C"></path></svg>
+                       </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div class="modal-backdrop" id="project-modal">
+        <div class="modal-content">
+            <div class="modal-close" id="modal-close-btn">&times;</div>
+            <div class="modal-image-container"></div>
+            <div class="modal-nav">
+                <button class="modal-nav-btn" id="modal-prev-btn">&#8249;</button>
+                <button class="modal-nav-btn" id="modal-next-btn">&#8250;</button>
+            </div>
+            <h3 id="modal-project-title"></h3>
+            <p id="modal-project-description"></p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectCards = document.querySelectorAll('.project-card');
+            const modal = document.getElementById('project-modal');
+            if (modal) {
+                const modalCloseBtn = document.getElementById('modal-close-btn');
+                const modalImageContainer = document.querySelector('.modal-image-container');
+                const modalTitle = document.getElementById('modal-project-title');
+                const modalDescription = document.getElementById('modal-project-description');
+                const modalNav = document.querySelector('.modal-nav');
+                const modalPrevBtn = document.getElementById('modal-prev-btn');
+                const modalNextBtn = document.getElementById('modal-next-btn');
+                
+                let currentImageIndex = 0;
+                let images = [];
+
+                const showImage = (index) => {
+                    const slider = modalImageContainer.querySelector('.modal-image-slider');
+                    if (slider) { slider.style.transform = `translateX(-${index * 100}%)`; }
+                };
+
+                modalPrevBtn.addEventListener('click', () => {
+                    currentImageIndex = (currentImageIndex > 0) ? currentImageIndex - 1 : images.length - 1;
+                    showImage(currentImageIndex);
+                });
+
+                modalNextBtn.addEventListener('click', () => {
+                    currentImageIndex = (currentImageIndex < images.length - 1) ? currentImageIndex + 1 : 0;
+                    showImage(currentImageIndex);
+                });
+
+                projectCards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        modalTitle.textContent = card.dataset.title;
+                        modalDescription.innerHTML = card.dataset.desc;
+                        images = card.dataset.img.split(',').map(img => img.trim());
+                        modalImageContainer.innerHTML = ''; 
+                        
+                        if (images.length > 1) {
+                            const slider = document.createElement('div');
+                            slider.className = 'modal-image-slider';
+                            images.forEach(imgUrl => {
+                                const imgDiv = document.createElement('div');
+                                imgDiv.className = 'modal-image';
+                                imgDiv.style.backgroundImage = `url('${imgUrl}')`;
+                                slider.appendChild(imgDiv);
+                            });
+                            modalImageContainer.appendChild(slider);
+                            modalNav.style.display = 'block';
+                        } else {
+                            const imgDiv = document.createElement('div');
+                            imgDiv.className = 'modal-image';
+                            if (images[0]) {
+                              imgDiv.style.backgroundImage = `url('${images[0]}')`;
+                            }
+                            modalImageContainer.appendChild(imgDiv);
+                            modalNav.style.display = 'none';
+                        }
+
+                        currentImageIndex = 0;
+                        showImage(0);
+                        modal.classList.add('open');
+                    });
+                });
+
+                const closeModal = () => modal.classList.remove('open');
+                modalCloseBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+
+            const experienceCards = document.querySelectorAll('.timeline-content');
+            experienceCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('open');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
