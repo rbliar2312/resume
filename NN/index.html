@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>График [BRUTALIST FINAL]</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header"><img src="https://i.imgur.com/G4s5y2A.png" alt="Merasoft Logo"></div>
+            <div class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active"><a href="#"><div class="icon"><svg class="icon-graphic" viewBox="0 0 24 24" fill="none" stroke-linejoin="round" stroke-linecap="round"><path d="M3 12h5l3-9 4 16 3-7h3"/></svg></div>График</a></li>
+                    <li class="nav-item"><a href="#"><div class="icon"><div class="icon-squares"><div></div><div></div><div></div><div></div></div></div>Все тесты</a></li>
+                    <li class="nav-item"><a href="#"><div class="icon"><div class="icon-clipboard"></div></div>Мои тесты</a></li>
+                    <li class="nav-item"><a href="#"><div class="icon"><div class="icon-file"></div></div>Шаблоны тестов</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <div class="ad-container"><div class="ad-block">30-ДНЕВНЫЙ КУРС!</div></div>
+                <div class="user-profile">
+                     <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                     <svg class="logout-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3H19a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H15"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="page-title-header">
+                <h1>ГРАФИК</h1>
+                <div class="tabs">
+                    <div class="tab-item active">Расписание</div>
+                    <div class="tab-item">Результаты</div>
+                    <div class="tab-item">Избранное</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="y-axis">
+                    <span>100%</span><span>90%</span><span>80%</span><span>70%</span><span>60%</span><span>50%</span><span>40%</span><span>30%</span><span>20%</span><span>10%</span><span>0%</span>
+                </div>
+                <div class="chart-area" id="chart"></div>
+            </div>
+            <div class="x-axis" id="x-axis"></div>
+
+            <table class="results-table" id="results-table">
+                <thead>
+                    <tr>
+                        <th>Название теста</th>
+                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th>
+                        <th>Итого</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
