@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>График [BRUTALIST DIARY 2.2]</title>
+    <title>График [BRUTALIST DIARY 2.3]</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Lora:wght@700&display=swap');
         :root {
@@ -15,93 +15,76 @@
             --accent-primary: #FF007A;
             --accent-yellow: #FFD600;
             --accent-green: #00E86B;
-            --accent-blue: #00A3FF;
+            --accent-red: #FF4136;
             --border-width: 2px;
             --sidebar-width: 250px;
+            --hard-shadow: 4px 4px 0px var(--border-color);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; border-radius: 0 !important; }
         body { font-family: var(--font-mono); background-color: var(--bg-paper); color: var(--text-primary); font-size: 14px; font-weight: 500; }
         .page-wrapper { display: flex; }
         
-        /* === БОКОВАЯ ПАНЕЛЬ === */
         .sidebar { width: var(--sidebar-width); height: 100vh; background-color: var(--bg-paper); border-right: var(--border-width) solid var(--border-color); position: fixed; top: 0; left: 0; display: flex; flex-direction: column; padding: 20px; }
         .sidebar-header { margin-bottom: 20px; padding-bottom: 20px; border-bottom: var(--border-width) solid var(--border-color); }
         .sidebar-header img { height: 24px; filter: grayscale(1); }
         .sidebar-nav { flex-grow: 1; overflow-y: auto; }
         .sidebar-nav ul { list-style: none; }
-        .sidebar-nav li a { display: flex; align-items: center; padding: 12px; text-decoration: none; color: var(--text-primary); font-weight: 700; margin-bottom: 8px; transition: none; }
-        .sidebar-nav li a svg { margin-right: 12px; width: 20px; height: 20px; }
+        .sidebar-nav li a { display: flex; align-items: center; padding: 12px; text-decoration: none; color: var(--text-primary); font-weight: 700; margin-bottom: 8px; }
         .sidebar-nav li a:hover { background-color: var(--accent-yellow); }
         .sidebar-nav li a.active { background-color: var(--accent-primary); }
         .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: var(--border-width) solid var(--border-color); }
         .user-profile { display: flex; align-items: center; justify-content: space-between; }
-        .user-profile .profile-info { display: flex; align-items: center; gap: 10px; }
         .user-profile img { width: 40px; height: 40px; border: var(--border-width) solid var(--border-color); }
-        .user-profile .logout-btn { cursor: pointer; }
         .ad-container { padding: 20px 0; }
-        .ad-block { border: var(--border-width) solid var(--border-color); padding: 15px; text-align: center; font-size: 12px; margin-bottom: 15px; }
+        .ad-block { border: var(--border-width) solid var(--border-color); padding: 15px; text-align: center; font-size: 12px; margin-bottom: 15px; box-shadow: var(--hard-shadow); }
         .ad-block .ad-title { font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
-        .ad-block .ad-link { font-size: 11px; text-decoration: underline; }
-
-        /* === ОСНОВНОЙ КОНТЕНТ === */
+        
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; }
         
         .page-title-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 20px; border-bottom: var(--border-width) solid var(--border-color); }
         h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
-        h1 .subtitle { font-family: var(--font-mono); font-size: 14px; font-weight: 400; color: #888; text-transform: none; display: block; }
         .tabs { display: flex; }
         .tab-item { padding: 10px 15px; border: var(--border-width) solid var(--border-color); margin-left: -2px; font-weight: 700; cursor: pointer; background: #fff; }
         .tab-item.active { background: var(--accent-primary); }
         
-        /* === ГРАФИК === */
-        .chart-container {
-            height: 500px;
+        .chart-container { background: #fff; border: var(--border-width) solid var(--border-color); padding: 20px; display: flex; box-shadow: var(--hard-shadow); }
+        .y-axis { display: flex; flex-direction: column; justify-content: space-between; height: 300px; padding-right: 15px; font-size: 12px; text-align: right; border-right: var(--border-width) solid var(--border-color); }
+        .chart-area { flex-grow: 1; display: flex; justify-content: space-around; align-items: flex-end; height: 300px; padding: 0 10px; border-bottom: var(--border-width) solid var(--border-color); position: relative; }
+        .bar { width: calc(100% / 40); border: var(--border-width) solid var(--border-color); border-bottom: none; cursor: pointer; }
+        .x-axis { display: flex; justify-content: space-around; padding-top: 10px; font-size: 12px; }
+        .x-axis-label { width: calc(100% / 40); text-align: center; }
+
+        .results-table {
+            margin-top: 30px;
             width: 100%;
+            border-collapse: collapse;
             background: #fff;
             border: var(--border-width) solid var(--border-color);
-            padding: 20px;
-            display: flex;
+            box-shadow: var(--hard-shadow);
         }
-        .y-axis {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            padding-right: 15px;
-            font-size: 12px;
-            text-align: right;
-            border-right: var(--border-width) solid var(--border-color);
-        }
-        .chart-area {
-            flex-grow: 1;
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            padding: 0 10px;
-            border-bottom: var(--border-width) solid var(--border-color);
-            position: relative;
-        }
-        .bar {
-            width: calc(100% / 40); /* ~ширина столбца */
+        .results-table th, .results-table td {
             border: var(--border-width) solid var(--border-color);
-            border-bottom: none;
-            cursor: pointer;
-            transition: filter 0.2s;
-        }
-        .bar:hover {
-            filter: brightness(1.1);
-        }
-        .x-axis {
-            display: flex;
-            justify-content: space-around;
-            padding-left: calc(var(--sidebar-width) + 60px); /* Синхронизация с Y-осью */
-            padding-top: 10px;
+            padding: 12px;
+            text-align: left;
             font-size: 12px;
         }
-        .x-axis-label {
-            width: calc(100% / 40);
+        .results-table th {
+            background-color: var(--bg-paper);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .results-table td.score-cell {
             text-align: center;
         }
+        .score-box {
+            display: inline-block;
+            padding: 4px 8px;
+            font-weight: 700;
+            border: var(--border-width) solid var(--border-color);
+        }
+        .score-green { background-color: var(--accent-green); }
+        .score-yellow { background-color: var(--accent-yellow); }
+        .score-red { background-color: var(--accent-red); }
 
         @media (max-width: 992px) {
             .page-wrapper { display: block; }
@@ -117,110 +100,106 @@
             <div class="sidebar-header"><img src="https://storage.yandexcloud.net/s.mierasoft.com/media/logo_color.svg" alt="Merasoft Logo"></div>
             <div class="sidebar-nav">
                 <ul>
-                    <li><a href="#" class="active" onclick="showInfo('График')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8a6 6 0 0 0-8.4 0L4 14"/></svg>График</a></li>
-                    <li><a href="#" onclick="showInfo('Все тесты')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Все тесты</a></li>
-                    <li><a href="#" onclick="showInfo('Мои тесты')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4"></rect></svg>Мои тесты</a></li>
-                    <li><a href="#" onclick="showInfo('Шаблоны тестов')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>Шаблоны тестов</a></li>
-                    <li><a href="#" onclick="showInfo('Рассылки')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Рассылки</a></li>
-                    <li><a href="#" onclick="showInfo('Отчеты')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Отчеты</a></li>
-                    <li><a href="https://www.pornhub.com" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>Компания</a></li>
+                    <li><a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8a6 6 0 0 0-8.4 0L4 14"/></svg>График</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Все тесты</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4"></rect></svg>Мои тесты</a></li>
+                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>Шаблоны тестов</a></li>
                 </ul>
             </div>
             <div class="ad-container">
                  <div class="ad-block">
-                    <p class="ad-title">30-ДНЕВНЫЙ КУРС ПО 3D ГРАФИКЕ!</p>
-                    <a href="#" onclick="alert('Переход на exeloncourse.com')" class="ad-link">exeloncourse.com</a>
+                    <p class="ad-title">30-ДНЕВНЫЙ КУРС!</p>
                 </div>
             </div>
             <div class="sidebar-footer">
                 <div class="user-profile">
-                    <div class="profile-info">
-                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
-                    </div>
-                    <svg onclick="alert('Выход')" class="logout-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3H19a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H15"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                     <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
                 </div>
             </div>
         </nav>
 
         <main class="main-content">
             <div class="page-title-header">
-                <h1>ГРАФИК<span class="subtitle">/ Результаты / Итоги по вопросам</span></h1>
+                <h1>ГРАФИК</h1>
                 <div class="tabs">
-                    <div class="tab-item" onclick="showInfo('Вкладка Расписание')">Расписание</div>
-                    <div class="tab-item active" onclick="showInfo('Вкладка Результаты')">Результаты</div>
-                    <div class="tab-item" onclick="showInfo('Вкладка Избранное')">Избранное</div>
+                    <div class="tab-item">Расписание</div>
+                    <div class="tab-item active">Результаты</div>
+                    <div class="tab-item">Избранное</div>
                 </div>
             </div>
             
             <div class="chart-container">
                 <div class="y-axis">
-                    <span>100%</span>
-                    <span>90%</span>
-                    <span>80%</span>
-                    <span>70%</span>
-                    <span>60%</span>
-                    <span>50%</span>
-                    <span>40%</span>
-                    <span>30%</span>
-                    <span>20%</span>
-                    <span>10%</span>
-                    <span>0%</span>
+                    <span>100%</span><span>90%</span><span>80%</span><span>70%</span><span>60%</span><span>50%</span><span>40%</span><span>30%</span><span>20%</span><span>10%</span><span>0%</span>
                 </div>
-                <div class="chart-area" id="chart">
-                    <!-- Столбцы будут сгенерированы скриптом -->
-                </div>
+                <div class="chart-area" id="chart"></div>
             </div>
-            <div class="x-axis" id="x-axis">
-                <!-- Метки будут сгенерированы скриптом -->
-            </div>
+            <div class="x-axis" id="x-axis"></div>
+
+            <table class="results-table" id="results-table">
+                <thead>
+                    <tr>
+                        <th>Название теста</th>
+                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th>
+                        <th>Итого</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Данные будут добавлены скриптом -->
+                </tbody>
+            </table>
         </main>
     </div>
 
     <script>
-        // --- ПРОСТАЯ ИНТЕРАКТИВНОСТЬ ---
-        function showInfo(message) {
-            alert(`Вы кликнули на: ${message}`);
-        }
-
-        // --- ГЕНЕРАЦИЯ ГРАФИКА ---
         document.addEventListener('DOMContentLoaded', () => {
             const chartArea = document.getElementById('chart');
             const xAxis = document.getElementById('x-axis');
-            const data = [
-                { value: 40, color: 'var(--accent-primary)' }, { value: 82, color: 'var(--accent-green)' },
-                { value: 52, color: 'var(--accent-yellow)' }, { value: 0, color: 'transparent' },
-                { value: 81, color: 'var(--accent-green)' }, { value: 72, color: 'var(--accent-green)' },
-                { value: 52, color: 'var(--accent-yellow)' }, { value: 100, color: 'var(--accent-green)' },
-                { value: 40, color: 'var(--accent-primary)' }, { value: 65, color: 'var(--accent-yellow)' },
-                { value: 42, color: 'var(--accent-primary)' }, { value: 52, color: 'var(--accent-yellow)' },
-                { value: 82, color: 'var(--accent-green)' }, { value: 72, color: 'var(--accent-green)' },
-                { value: 85, color: 'var(--accent-green)' }, { value: 52, color: 'var(--accent-yellow)' },
-                { value: 0, color: 'transparent' }, { value: 40, color: 'var(--accent-primary)' },
-                { value: 52, color: 'var(--accent-yellow)' }, { value: 45, color: 'var(--accent-primary)' },
-                { value: 81, color: 'var(--accent-green)' }, { value: 90, color: 'var(--accent-green)' },
-                { value: 90, color: 'var(--accent-green)' }, { value: 52, color: 'var(--accent-yellow)' },
-                { value: 42, color: 'var(--accent-primary)' }, { value: 52, color: 'var(--accent-yellow)' },
-                { value: 32, color: 'var(--accent-primary)' }, { value: 0, color: 'transparent' },
-                { value: 52, color: 'var(--accent-yellow)' }, { value: 81, color: 'var(--accent-green)' },
-                { value: 72, color: 'var(--accent-green)' }, { value: 65, color: 'var(--accent-yellow)' },
-                { value: 52, color: 'var(--accent-yellow)' }, { value: 32, color: 'var(--accent-primary)' },
-            ];
+            const chartData = [42,85,53,0,85,73,53,100,42,66,42,53,85,73,88,53,0,42,53,46,85,92,92,53,42,53,33,0,53,85,73,66,53,33];
+            const colors = ['var(--accent-primary)', 'var(--accent-green)', 'var(--accent-yellow)'];
 
-            data.forEach((point, index) => {
-                // Создаем столбец
+            chartData.forEach((value, index) => {
                 const bar = document.createElement('div');
                 bar.className = 'bar';
-                bar.style.height = `${point.value}%`;
-                bar.style.backgroundColor = point.color;
-                bar.title = `Вопрос ${index + 1}: ${point.value}%`;
-                bar.onclick = () => showInfo(`Столбец ${index + 1} (${point.value}%)`);
+                bar.style.height = `${value}%`;
+                bar.style.backgroundColor = colors[index % 3];
                 chartArea.appendChild(bar);
 
-                // Создаем метку на оси X
                 const label = document.createElement('div');
                 label.className = 'x-axis-label';
                 label.textContent = index + 1;
                 xAxis.appendChild(label);
+            });
+
+            const tableBody = document.querySelector('#results-table tbody');
+            const tableData = [
+                { name: 'Менеджмент. Тест номер 1: введение', scores: [95, 95, 95, 95, 95, 95, 95, 95, 95, 67], total: 40 },
+                { name: 'Тест номер 1: введение в SMM и общие положения', scores: [100, 92, 100, 93, 67, 90, 86, 100, 100, 82], total: 40 },
+                { name: 'Тест номер 1: введение в SMM и общие положения', scores: [67, 67, 67, 67, 100, 67, 67, 67, 67, 43], total: 59 },
+                { name: 'Менеджмент. часть 1: введение', scores: [100, 100, 100, 100, 43, 100, 100, 91, 100, 100], total: 100 },
+                { name: 'Тест номер 1: введение в SMM и общие положения', scores: [43, 43, 43, 43, 100, 45, 43, 43, 43, 65], total: 280 },
+                { name: 'Тест номер 1: введение в SMM и общие положения', scores: [65, 65, 65, 65, 65, 65, 60, 65, 65, 95], total: 300 },
+            ];
+
+            function getScoreClass(score) {
+                if (score >= 90) return 'score-green';
+                if (score >= 60) return 'score-yellow';
+                return 'score-red';
+            }
+
+            tableData.forEach(rowData => {
+                const row = document.createElement('tr');
+                let cells = `<td>${rowData.name}</td>`;
+                rowData.scores.forEach(score => {
+                    cells += `<td class="score-cell"><span class="score-box ${getScoreClass(score)}">${score}</span></td>`;
+                });
+                // Дополняем пустыми ячейками, если нужно
+                for (let i = rowData.scores.length; i < 11; i++) {
+                    cells += `<td></td>`;
+                }
+                cells += `<td class="score-cell"><strong>${rowData.total}</strong></td>`;
+                row.innerHTML = cells;
+                tableBody.appendChild(row);
             });
         });
     </script>
