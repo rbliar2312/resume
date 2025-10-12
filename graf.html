@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>График [BRUTALIST DIARY 2.3]</title>
+    <title>График [BRUTALIST FINAL]</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Lora:wght@700&display=swap');
         :root {
@@ -15,7 +15,6 @@
             --accent-primary: #FF007A;
             --accent-yellow: #FFD600;
             --accent-green: #00E86B;
-            --accent-red: #FF4136;
             --border-width: 2px;
             --sidebar-width: 250px;
             --hard-shadow: 4px 4px 0px var(--border-color);
@@ -25,24 +24,32 @@
         .page-wrapper { display: flex; }
         
         .sidebar { width: var(--sidebar-width); height: 100vh; background-color: var(--bg-paper); border-right: var(--border-width) solid var(--border-color); position: fixed; top: 0; left: 0; display: flex; flex-direction: column; padding: 20px; }
-        .sidebar-header { margin-bottom: 20px; padding-bottom: 20px; border-bottom: var(--border-width) solid var(--border-color); }
+        .sidebar-header { margin-bottom: 20px; }
         .sidebar-header img { height: 24px; filter: grayscale(1); }
         .sidebar-nav { flex-grow: 1; overflow-y: auto; }
         .sidebar-nav ul { list-style: none; }
-        .sidebar-nav li a { display: flex; align-items: center; padding: 12px; text-decoration: none; color: var(--text-primary); font-weight: 700; margin-bottom: 8px; }
-        .sidebar-nav li a:hover { background-color: var(--accent-yellow); }
-        .sidebar-nav li a.active { background-color: var(--accent-primary); }
-        .sidebar-footer { margin-top: auto; padding-top: 20px; border-top: var(--border-width) solid var(--border-color); }
-        .user-profile { display: flex; align-items: center; justify-content: space-between; }
-        .user-profile img { width: 40px; height: 40px; border: var(--border-width) solid var(--border-color); }
-        .ad-container { padding: 20px 0; }
-        .ad-block { border: var(--border-width) solid var(--border-color); padding: 15px; text-align: center; font-size: 12px; margin-bottom: 15px; box-shadow: var(--hard-shadow); }
-        .ad-block .ad-title { font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+        .nav-item { margin-bottom: 20px; }
+        .nav-item a { text-decoration: none; color: var(--text-primary); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .icon { width: 50px; height: 50px; border: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .nav-item.active .icon { background-color: var(--accent-primary); }
+        .nav-item.active .icon-graphic path { stroke: var(--text-primary); }
+        .icon-graphic { width: 60%; height: 60%; }
+        .icon-squares { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 50%; height: 50%; }
+        .icon-squares div { border: var(--border-width) solid var(--border-color); }
+        .icon-clipboard { width: 50%; height: 60%; border: var(--border-width) solid var(--border-color); position: relative; }
+        .icon-clipboard::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 40%; height: 4px; border: var(--border-width) solid var(--border-color); background: var(--bg-paper); }
+        .icon-file { width: 45%; height: 60%; border: var(--border-width) solid var(--border-color); position: relative; }
+        .icon-file::before { content: ''; position: absolute; top: -2px; right: -2px; width: 12px; height: 12px; background: var(--bg-paper); border-left: var(--border-width) solid var(--border-color); border-bottom: var(--border-width) solid var(--border-color); }
         
+        .sidebar-footer { margin-top: auto; }
+        .ad-block { border: var(--border-width) solid var(--border-color); padding: 10px; text-align: center; font-size: 12px; margin-bottom: 20px; font-weight: 700; }
+        .user-profile { display: flex; align-items: center; justify-content: flex-start; }
+        .user-profile img { width: 40px; height: 40px; border: var(--border-width) solid var(--border-color); }
+
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; }
         
         .page-title-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 20px; border-bottom: var(--border-width) solid var(--border-color); }
-        h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+        h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; text-transform: uppercase; }
         .tabs { display: flex; }
         .tab-item { padding: 10px 15px; border: var(--border-width) solid var(--border-color); margin-left: -2px; font-weight: 700; cursor: pointer; background: #fff; }
         .tab-item.active { background: var(--accent-primary); }
@@ -54,37 +61,14 @@
         .x-axis { display: flex; justify-content: space-around; padding-top: 10px; font-size: 12px; }
         .x-axis-label { width: calc(100% / 40); text-align: center; }
 
-        .results-table {
-            margin-top: 30px;
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            border: var(--border-width) solid var(--border-color);
-            box-shadow: var(--hard-shadow);
-        }
-        .results-table th, .results-table td {
-            border: var(--border-width) solid var(--border-color);
-            padding: 12px;
-            text-align: left;
-            font-size: 12px;
-        }
-        .results-table th {
-            background-color: var(--bg-paper);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .results-table td.score-cell {
-            text-align: center;
-        }
-        .score-box {
-            display: inline-block;
-            padding: 4px 8px;
-            font-weight: 700;
-            border: var(--border-width) solid var(--border-color);
-        }
+        .results-table { margin-top: 30px; width: 100%; border-collapse: collapse; background: #fff; border: var(--border-width) solid var(--border-color); box-shadow: var(--hard-shadow); }
+        .results-table th, .results-table td { border: var(--border-width) solid var(--border-color); padding: 12px; text-align: left; font-size: 12px; }
+        .results-table th { background-color: var(--bg-paper); font-weight: 700; text-transform: uppercase; }
+        .results-table td.score-cell { text-align: center; }
+        .score-box { display: inline-block; padding: 4px 8px; font-weight: 700; border: var(--border-width) solid var(--border-color); }
         .score-green { background-color: var(--accent-green); }
         .score-yellow { background-color: var(--accent-yellow); }
-        .score-red { background-color: var(--accent-red); }
+        .score-pink { background-color: var(--accent-primary); }
 
         @media (max-width: 992px) {
             .page-wrapper { display: block; }
@@ -97,21 +81,37 @@
 <body>
     <div class="page-wrapper">
         <nav class="sidebar">
-            <div class="sidebar-header"><img src="https://storage.yandexcloud.net/s.mierasoft.com/media/logo_color.svg" alt="Merasoft Logo"></div>
+            <div class="sidebar-header"><img src="https://i.imgur.com/G4s5y2A.png" alt="Merasoft Logo"></div>
             <div class="sidebar-nav">
                 <ul>
-                    <li><a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8a6 6 0 0 0-8.4 0L4 14"/></svg>График</a></li>
-                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Все тесты</a></li>
-                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4"></rect></svg>Мои тесты</a></li>
-                    <li><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>Шаблоны тестов</a></li>
+                    <li class="nav-item active">
+                        <a href="#">
+                            <div class="icon"><svg class="icon-graphic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M3 12h5l3-9 4 16 3-7h3"/></svg></div>
+                            График
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <div class="icon"><div class="icon-squares"><div></div><div></div><div></div><div></div></div></div>
+                            Все тесты
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <div class="icon"><div class="icon-clipboard"></div></div>
+                            Мои тесты
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="#">
+                            <div class="icon"><div class="icon-file"></div></div>
+                            Шаблоны тестов
+                        </a>
+                    </li>
                 </ul>
             </div>
-            <div class="ad-container">
-                 <div class="ad-block">
-                    <p class="ad-title">30-ДНЕВНЫЙ КУРС!</p>
-                </div>
-            </div>
             <div class="sidebar-footer">
+                <div class="ad-block">30-ДНЕВНЫЙ КУРС!</div>
                 <div class="user-profile">
                      <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
                 </div>
@@ -144,9 +144,7 @@
                         <th>Итого</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Данные будут добавлены скриптом -->
-                </tbody>
+                <tbody></tbody>
             </table>
         </main>
     </div>
@@ -184,7 +182,7 @@
             function getScoreClass(score) {
                 if (score >= 90) return 'score-green';
                 if (score >= 60) return 'score-yellow';
-                return 'score-red';
+                return 'score-pink'; /* Изменено с red на pink */
             }
 
             tableData.forEach(rowData => {
@@ -193,7 +191,6 @@
                 rowData.scores.forEach(score => {
                     cells += `<td class="score-cell"><span class="score-box ${getScoreClass(score)}">${score}</span></td>`;
                 });
-                // Дополняем пустыми ячейками, если нужно
                 for (let i = rowData.scores.length; i < 11; i++) {
                     cells += `<td></td>`;
                 }
