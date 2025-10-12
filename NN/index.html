@@ -37,24 +37,71 @@
                 </div>
             </div>
             
-            <div class="chart-container">
-                <div class="y-axis">
-                    <span>100%</span><span>90%</span><span>80%</span><span>70%</span><span>60%</span><span>50%</span><span>40%</span><span>30%</span><span>20%</span><span>10%</span><span>0%</span>
-                </div>
-                <div class="chart-area" id="chart"></div>
+            <div class="filters">
+                <div class="filter-item"><select><option>По времени</option></select></div>
+                <div class="filter-item"><select><option>Период не выбран</option></select></div>
+                <button class="action-btn" style="margin-left: auto;">+ Добавить тест</button>
+                <button class="action-btn search-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
             </div>
-            <div class="x-axis" id="x-axis"></div>
+            
+            <div class="schedule-controls">
+                <a class="nav-week-btn">&lt; предыдущая неделя</a>
+                <a class="nav-week-btn">следующая неделя &gt;</a>
+            </div>
 
-            <table class="results-table" id="results-table">
-                <thead>
-                    <tr>
-                        <th>Название теста</th>
-                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th>
-                        <th>Итого</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div class="schedule-grid">
+                <div class="day-column">
+                    <div class="day-header">ПН, 17 МАРТА</div>
+                    <div class="test-card card-red">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3><p>Вводный курс по программированию и основам основ, ознакомление...</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                     <div class="test-card card-blue">
+                        <div class="card-header"><span class="card-tag">Менеджмент</span></div>
+                        <div class="card-body"><h3>Маркетинг часть 1</h3></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                    <div class="test-card completed card-red">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Длинный заголовок в одну строку</h3><p>Вводный курс по программированию и основам основ, ознакомление...</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Выполнен</div><div class="card-footer-item">100 баллов</div></div>
+                    </div>
+                </div>
+                <div class="day-column">
+                    <div class="day-header">ВТ, 18 МАРТА</div>
+                    <div class="test-card card-red">
+                        <div class="card-header"><span class="card-tag">Программирование</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                     <div class="test-card card-yellow">
+                        <div class="card-header"><span class="card-tag">Испанский</span></div>
+                        <div class="card-body"><h3>Тест по испанскому</h3><p>Определение уровня владения языка.</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                </div>
+                <div class="day-column">
+                    <div class="day-header">СР, 19 МАРТА</div>
+                    <div class="test-card card-green">
+                        <div class="card-header"><span class="card-tag">English</span></div>
+                        <div class="card-body"><h3>Маркетинг это название теста</h3><p>Определение уровня владения языка.</p></div>
+                        <div class="card-footer"><div class="card-footer-item">Не начат</div><div class="card-footer-item">30 мин</div></div>
+                    </div>
+                </div>
+                <div class="day-column bookmark-column">
+                    <div class="day-header">ЧТ</div><div class="placeholder-card"></div>
+                </div>
+                <div class="day-column bookmark-column">
+                    <div class="day-header">ПТ</div><div class="placeholder-card"></div>
+                </div>
+                <div class="day-column bookmark-column">
+                    <div class="day-header">СБ</div><div class="placeholder-card"></div>
+                </div>
+                <div class="day-column bookmark-column">
+                    <div class="day-header">ВС</div><div class="placeholder-card"></div>
+                </div>
+            </div>
         </main>
     </div>
     <script src="script.js"></script>
