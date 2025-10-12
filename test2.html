@@ -51,7 +51,7 @@
         .user-profile { display: flex; align-items: center; justify-content: space-between; }
         .user-profile img { width: 40px; height: 40px; border: var(--border-width) solid var(--border-color); }
         .user-profile .logout-btn { cursor: pointer; }
-
+        
         /* === ОСНОВНОЙ КОНТЕНТ === */
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; }
         
@@ -117,6 +117,7 @@
                 <div class="ad-container"><div class="ad-block">30-ДНЕВНЫЙ КУРС!</div></div>
                 <div class="user-profile">
                      <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User Avatar">
+                     <svg onclick="alert('Выход')" class="logout-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3H19a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H15"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
                 </div>
             </div>
         </nav>
