@@ -23,33 +23,42 @@
         body { font-family: var(--font-mono); background-color: var(--bg-paper); color: var(--text-primary); font-size: 14px; font-weight: 500; }
         .page-wrapper { display: flex; }
         
-        .sidebar { width: var(--sidebar-width); height: 100vh; background-color: var(--bg-paper); border-right: var(--border-width) solid var(--border-color); position: fixed; top: 0; left: 0; display: flex; flex-direction: column; padding: 20px; }
-        .sidebar-header { margin-bottom: 20px; }
+        /* === БЛОК Л: Боковая панель (точная копия макета) === */
+        .sidebar { width: var(--sidebar-width); height: 100vh; background-color: var(--bg-paper); border-right: var(--border-width) solid var(--border-color); position: fixed; top: 0; left: 0; display: flex; flex-direction: column; padding: 25px; }
+        .sidebar-header { margin-bottom: 30px; }
         .sidebar-header img { height: 24px; filter: grayscale(1); }
-        .sidebar-nav { flex-grow: 1; overflow-y: auto; }
+        .sidebar-nav { flex-grow: 1; }
         .sidebar-nav ul { list-style: none; }
-        .nav-item { margin-bottom: 20px; }
-        .nav-item a { text-decoration: none; color: var(--text-primary); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .nav-item { margin-bottom: 25px; }
+        .nav-item a { text-decoration: none; color: var(--text-primary); font-weight: 700; display: flex; align-items: center; gap: 15px; }
         .icon { width: 50px; height: 50px; border: var(--border-width) solid var(--border-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .nav-item.active .icon { background-color: var(--accent-primary); }
-        .nav-item.active .icon-graphic path { stroke: var(--text-primary); }
-        .icon-graphic { width: 60%; height: 60%; }
-        .icon-squares { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 50%; height: 50%; }
-        .icon-squares div { border: var(--border-width) solid var(--border-color); }
-        .icon-clipboard { width: 50%; height: 60%; border: var(--border-width) solid var(--border-color); position: relative; }
-        .icon-clipboard::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 40%; height: 4px; border: var(--border-width) solid var(--border-color); background: var(--bg-paper); }
-        .icon-file { width: 45%; height: 60%; border: var(--border-width) solid var(--border-color); position: relative; }
-        .icon-file::before { content: ''; position: absolute; top: -2px; right: -2px; width: 12px; height: 12px; background: var(--bg-paper); border-left: var(--border-width) solid var(--border-color); border-bottom: var(--border-width) solid var(--border-color); }
         
+        .nav-item.active a {
+            background-color: var(--accent-primary);
+            border: var(--border-width) solid var(--border-color);
+            padding: 10px;
+            width: 100%;
+        }
+        .nav-item.active .icon { border: none; } /* Убираем рамку у иконки активного элемента */
+        .icon-graphic { width: 60%; height: 60%; }
+        .icon-graphic path { stroke: var(--text-primary); stroke-width: 3; }
+        .icon-squares { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 26px; height: 26px; }
+        .icon-squares div { border: var(--border-width) solid var(--border-color); }
+        .icon-clipboard { width: 26px; height: 30px; border: var(--border-width) solid var(--border-color); position: relative; }
+        .icon-clipboard::before { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 12px; height: 4px; border: var(--border-width) solid var(--border-color); background: var(--bg-paper); }
+        .icon-file { width: 24px; height: 30px; border: var(--border-width) solid var(--border-color); position: relative; }
+        .icon-file::before { content: ''; position: absolute; top: -2px; right: -2px; width: 10px; height: 10px; background: var(--bg-paper); border-left: var(--border-width) solid var(--border-color); border-bottom: var(--border-width) solid var(--border-color); }
+
         .sidebar-footer { margin-top: auto; }
         .ad-block { border: var(--border-width) solid var(--border-color); padding: 10px; text-align: center; font-size: 12px; margin-bottom: 20px; font-weight: 700; }
-        .user-profile { display: flex; align-items: center; justify-content: flex-start; }
+        .user-profile { display: flex; align-items: center; }
         .user-profile img { width: 40px; height: 40px; border: var(--border-width) solid var(--border-color); }
 
+        /* === ОСНОВНОЙ КОНТЕНТ === */
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 30px; }
         
         .page-title-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 20px; border-bottom: var(--border-width) solid var(--border-color); }
-        h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; text-transform: uppercase; }
+        h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; text-transform: uppercase; line-height: 1.2; }
         .tabs { display: flex; }
         .tab-item { padding: 10px 15px; border: var(--border-width) solid var(--border-color); margin-left: -2px; font-weight: 700; cursor: pointer; background: #fff; }
         .tab-item.active { background: var(--accent-primary); }
@@ -86,7 +95,7 @@
                 <ul>
                     <li class="nav-item active">
                         <a href="#">
-                            <div class="icon"><svg class="icon-graphic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M3 12h5l3-9 4 16 3-7h3"/></svg></div>
+                            <div class="icon"><svg class="icon-graphic" viewBox="0 0 24 24" fill="none" stroke-linejoin="round" stroke-linecap="round"><path d="M3 12h5l3-9 4 16 3-7h3"/></svg></div>
                             График
                         </a>
                     </li>
@@ -182,7 +191,7 @@
             function getScoreClass(score) {
                 if (score >= 90) return 'score-green';
                 if (score >= 60) return 'score-yellow';
-                return 'score-pink'; /* Изменено с red на pink */
+                return 'score-pink';
             }
 
             tableData.forEach(rowData => {
