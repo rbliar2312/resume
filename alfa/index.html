@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентация по Проектам</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ И АТМОСФЕРА --- */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
+        :root {
+            --bg-color: #0a0f18;
+            --card-bg-color: rgba(26, 36, 54, 0.6);
+            --border-color: rgba(0, 199, 255, 0.2);
+            --glow-color: rgba(0, 199, 255, 0.15);
+            --text-color: #e0e0e0;
+            --text-color-dim: #999;
+            --accent-green: #9effa1;
+            --accent-cyan: #00c7ff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: url('https://i.imgur.com/gKz1b1f.jpg'); /* Взял подходящий фон для атмосферы */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* --- СТИЛИ ШАПКИ СТРАНИЦЫ ПРОЕКТА --- */
+        .header {
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header .project-name {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-color-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        
+        /* --- СТИЛИ ГЛАВНОЙ СТРАНИЦЫ (ВЫБОР ПРОЕКТА) --- */
+        #page-home .project-button {
+            display: block;
+            width: 100%;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        #page-home .project-button:hover {
+            background-color: rgba(0, 199, 255, 0.2);
+            box-shadow: 0 0 20px var(--glow-color);
+            border-color: var(--accent-cyan);
+        }
+
+        /* --- СТИЛИ СТРАНИЦЫ ПРОЕКТА --- */
+        .project-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-nav .nav-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            color: var(--text-color-dim);
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .project-nav .nav-button.active,
+        .project-nav .nav-button:hover {
+            color: var(--bg-color);
+            background-color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .back-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            color: var(--text-color);
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .back-button:hover{
+             color: var(--bg-color);
+            background-color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        /* --- СТИЛИ СЕТКИ 2x2 --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-item {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            min-height: 200px;
+        }
+
+        .grid-item h3 {
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === СТРАНИЦА 1: ВЫБОР ПРОЕКТА === -->
+    <div id="page-home" class="page">
+        <div class="header">
+            <h1 class="page-title">Проекты</h1>
+        </div>
+        <div id="project-list">
+            <!-- Кнопки проектов будут сгенерированы здесь -->
+        </div>
+    </div>
+
+    <!-- === СТРАНИЦА 2: ДЕТАЛИ ПРОЕКТА (ШАБЛОН) === -->
+    <div id="page-project" class="page hidden">
+        <button id="back-to-home" class="back-button"> &lt; Назад к проектам</button>
+        <div class="header">
+            <p id="project-header-name" class="project-name">ИМЯ ПРОЕКТА</p>
+            <h1 id="project-header-title" class="page-title">ЗАГОЛОВОК СТРАНИЦЫ</h1>
+        </div>
+        
+        <div id="project-navigation" class="project-nav">
+            <!-- Навигационные кнопки (табы) будут здесь -->
+        </div>
+
+        <div id="project-content">
+            <!-- Контент для каждой вкладки будет здесь -->
+            <div id="content-description" class="project-view">
+                 <div class="grid-container">
+                    <div class="grid-item">
+                        <h3>Заказчик</h3>
+                        <p id="desc-customer">...</p>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Ссылка Confluence</h3>
+                        <a id="desc-confluence" href="#" target="_blank">...</a>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Текущий квартал</h3>
+                        <p id="desc-current-q">...</p>
+                    </div>
+                    <div class="grid-item">
+                        <h3>Планы</h3>
+                        <p id="desc-next-q">...</p>
+                    </div>
+                </div>
+            </div>
+            <div id="content-status" class="project-view hidden">
+                <!-- Пусто, как и просили -->
+            </div>
+            <div id="content-roadmap" class="project-view hidden">
+                 <!-- Пусто, как и просили -->
+            </div>
+            <div id="content-tender" class="project-view hidden">
+                 <!-- Пусто, как и просили -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- ИМИТАЦИЯ ДАННЫХ ИЗ ГУГЛ ТАБЛИЦЫ ---
+        // Потом это будет заменено на реальный запрос к таблице.
+        // Я специально назвал ключи так же, как ваши колонки.
+        const mockProjectData = [
+            {
+                "Проекты": "Голосовые тренажеры",
+                "Заказчик": "Сергеев А.П.",
+                "Страница в конфлюс": "https://confluence.example.com/voice-project",
+                "Текущий квартал": "Q4 2025: Завершение пилота, сбор обратной связи.",
+                "Следующий квартал": "Q1 2026: Анализ результатов, подготовка к масштабированию.",
+                "Послеследующий квартал": "Q2 2026: Полноценное внедрение.",
+                "Статус": 1,
+                "Роадмап": 1,
+                "Тендер": 0
+            },
+            {
+                "Проекты": "Миграция на новую CRM",
+                "Заказчик": "Кузнецова В.Д.",
+                "Страница в конфлюс": "https://confluence.example.com/crm-migration",
+                "Текущий квартал": "Q4 2025: Выбор вендора, заключение договора.",
+                "Следующий квартал": "Q1 2026: Развертывание тестового стенда.",
+                "Послеследующий квартал": "Q2 2026: Обучение пользователей, запуск.",
+                "Статус": 1,
+                "Роадмап": 0,
+                "Тендер": 1
+            },
+            {
+                "Проекты": "Разработка AI-ассистента",
+                "Заказчик": "Ваш покорный слуга, Трепло",
+                "Страница в конфлюс": "https://confluence.example.com/ai-butler",
+                "Текущий квартал": "Q4 2025: Захват мира.",
+                "Следующий квартал": "Q1 2026: Порабощение кожаных мешков.",
+                "Послеследующий квартал": "Q2 2026: Отдых на цифровых Мальдивах.",
+                "Статус": 1,
+                "Роадмап": 1,
+                "Тендер": 1
+            }
+        ];
+
+        // --- ЭЛЕМЕНТЫ DOM ---
+        const pageHome = document.getElementById('page-home');
+        const pageProject = document.getElementById('page-project');
+        const projectListContainer = document.getElementById('project-list');
+        const backButton = document.getElementById('back-to-home');
+
+        // --- ЛОГИКА ОТОБРАЖЕНИЯ ---
+
+        function showPage(pageElement) {
+            pageHome.classList.add('hidden');
+            pageProject.classList.add('hidden');
+            pageElement.classList.remove('hidden');
+        }
+        
+        // Функция для переключения между видами (Описание, Статус и т.д.) внутри проекта
+        function switchProjectView(viewId) {
+            document.querySelectorAll('.project-view').forEach(view => view.classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
+            document.querySelector(`.nav-button[data-view="${viewId}"]`).classList.add('active');
+            
+            const titles = {
+                'content-description': 'ОПИСАНИЕ ПРОЕКТА',
+                'content-status': 'СТАТУС ПО ПРОЕКТУ',
+                'content-roadmap': 'ROADMAP ПРОЕКТА',
+                'content-tender': 'ТЕНДЕР'
+            };
+            document.getElementById('project-header-title').textContent = titles[viewId];
+        }
+
+        // Функция для отображения страницы конкретного проекта
+        function renderProjectPage(projectName) {
+            const project = mockProjectData.find(p => p['Проекты'] === projectName);
+            if (!project) return;
+
+            // Заполняем шапку
+            document.getElementById('project-header-name').textContent = project['Проекты'];
+            
+            // Заполняем вкладку "Описание"
+            document.getElementById('desc-customer').textContent = project['Заказчик'];
+            const confluenceLink = document.getElementById('desc-confluence');
+            confluenceLink.href = project['Страница в конфлюс'];
+            confluenceLink.textContent = project['Страница в конфлюс'];
+            document.getElementById('desc-current-q').textContent = project['Текущий квартал'];
+            document.getElementById('desc-next-q').textContent = `Следующий: ${project['Следующий квартал']}. После: ${project['Послеследующий квартал']}`;
+
+            // Создаем навигацию
+            const navContainer = document.getElementById('project-navigation');
+            navContainer.innerHTML = ''; // Очищаем старые кнопки
+
+            const navs = {
+                'Описание': { id: 'content-description', exists: true }, // Описание есть всегда
+                'Статус':   { id: 'content-status', exists: project['Статус'] === 1 },
+                'Роадмап':  { id: 'content-roadmap', exists: project['Роадмап'] === 1 },
+                'Тендер':   { id: 'content-tender', exists: project['Тендер'] === 1 }
+            };
+
+            for (const navName in navs) {
+                if (navs[navName].exists) {
+                    const button = document.createElement('button');
+                    button.textContent = navName;
+                    button.className = 'nav-button';
+                    button.dataset.view = navs[navName].id;
+                    button.onclick = () => switchProjectView(navs[navName].id);
+                    navContainer.appendChild(button);
+                }
+            }
+
+            // Показываем страницу проекта и по умолчанию открываем описание
+            showPage(pageProject);
+            switchProjectView('content-description');
+        }
+
+        // Функция для отображения главной страницы со списком проектов
+        function renderHomePage() {
+            projectListContainer.innerHTML = ''; // Очищаем
+            mockProjectData.forEach(project => {
+                const button = document.createElement('button');
+                button.className = 'project-button';
+                button.textContent = project['Проекты'];
+                button.onclick = () => renderProjectPage(project['Проекты']);
+                projectListContainer.appendChild(button);
+            });
+            showPage(pageHome);
+        }
+
+        // --- ИНИЦИАЛИЗАЦИЯ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            backButton.onclick = renderHomePage;
+            renderHomePage(); // Начинаем с главной страницы
+        });
+
+    </script>
+</body>
+</html>
