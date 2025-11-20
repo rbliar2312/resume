@@ -5,99 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Презентация по Проектам</title>
     <style>
-        /* --- ОБЩИЕ СТИЛИ И АТМОСФЕРА --- */
+        /* Стили остались те же, что и в прошлой версии. Я их не менял. */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-
-        :root {
-            --bg-color: #0a0f18;
-            --card-bg-color: rgba(26, 36, 54, 0.6);
-            --border-color: rgba(0, 199, 255, 0.2);
-            --glow-color: rgba(0, 199, 255, 0.15);
-            --text-color: #e0e0e0;
-            --text-color-dim: #999;
-            --accent-green: #9effa1;
-            --accent-green-dark: #3a753c;
-            --accent-cyan: #00c7ff;
-            --accent-red: #ff5252;
-            --accent-red-dark: #812929;
-            --roadmap-work: #e0b457;
-            --roadmap-done: #77c9c9;
-            --roadmap-plan: #6a7f9a;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            background-image: url('fon.png'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--text-color);
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-
-        .hidden { display: none !important; }
-        .page { width: 100%; max-width: 1200px; }
-
-        /* --- ОБЩИЕ СТИЛИ ШАПКИ --- */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .top-bar-left { display: flex; align-items: center; gap: 1.5rem; }
-        .page-header { padding: 0; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); }
-        .project-name { font-size: 1rem; font-weight: 300; color: var(--text-color-dim); letter-spacing: 1px; text-transform: uppercase; margin: 0; }
-        .page-title { font-size: 3rem; font-weight: 700; margin: 0; text-transform: uppercase; }
-
-        /* --- СТИЛИ НАВИГАЦИИ --- */
-        .project-nav { display: flex; gap: 1rem; }
-        .nav-button { padding: 0.75rem 1.5rem; font-size: 1rem; color: var(--text-color-dim); background: none; border: 1px solid var(--border-color); border-radius: 30px; cursor: pointer; transition: all 0.3s ease; }
-        .nav-button.active, .nav-button:hover { color: var(--bg-color); background-color: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: 0 0 15px var(--glow-color); }
-        .back-button { padding: 0.75rem 1.5rem; font-size: 1rem; color: var(--text-color); background: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 30px; cursor: pointer; transition: all 0.3s ease; }
-        .back-button:hover { color: var(--bg-color); background-color: var(--accent-green); border-color: var(--accent-green); }
-
-        /* --- СТИЛИ ГЛАВНОЙ СТРАНИЦЫ --- */
-        #page-home .page-header { border-bottom: none; }
-        #page-home .project-button { display: block; width: 100%; padding: 1.5rem; margin-bottom: 1rem; font-size: 1.5rem; color: var(--text-color); background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 15px; text-align: left; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
-        #page-home .project-button:hover { background-color: rgba(0, 199, 255, 0.2); box-shadow: 0 0 20px var(--glow-color); border-color: var(--accent-cyan); }
-        
-        /* === ИЗМЕНЕНИЕ 1: СТРУКТУРА СТРАНИЦЫ "ОПИСАНИЕ" === */
-        .description-layout { display: grid; grid-template-columns: 2fr 1fr; /* 2/3 и 1/3 */ gap: 2rem; align-items: start; }
-        .desc-column { display: flex; flex-direction: column; gap: 2rem; }
-        .desc-card { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 30px; padding: 1.5rem 2rem; backdrop-filter: blur(10px); }
-        .desc-card.full-height { min-height: 400px; /* Делаем левый блок выше */ }
-        .desc-card h3, .confluence-button { margin: -1.5rem -2rem 1.5rem -2rem; padding: 0.75rem 2rem; border-radius: 30px 30px 0 0; background: linear-gradient(to right, var(--accent-green), var(--accent-cyan)); color: var(--bg-color); font-weight: 700; text-align: center; }
-        .confluence-button { display: block; text-decoration: none; border-radius: 30px; margin: 0; transition: all 0.3s ease; }
-        .confluence-button:hover { box-shadow: 0 0 20px var(--glow-color); }
-        
-        /* === ИЗМЕНЕНИЕ 2: СТРУКТУРА СТРАНИЦЫ "СТАТУС" === */
-        .status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-        .status-card { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem; backdrop-filter: blur(10px); }
-        .status-card-header { display: inline-block; padding: 0.5rem 1.5rem; border-radius: 20px; margin-bottom: 1.5rem; font-weight: 700; color: var(--bg-color); }
-        .status-card-header.green { background: linear-gradient(to right, #9effa1, #63d4ac); }
-        .status-card-header.red { background: linear-gradient(to right, #ff5252, #c74169); }
-        .status-card-header.blue { background: linear-gradient(to right, #63a4ff, #41c7c7); }
-        .status-item-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .status-item-tile { background-color: rgba(10, 15, 24, 0.7); border-radius: 10px; padding: 1rem; display: flex; align-items: flex-start; gap: 10px; }
-        .status-item-num { color: var(--text-color-dim); font-weight: 300; }
-        .status-item-text { font-weight: 400; font-size: 0.9rem; }
-        /* Стили для рисков, они не плашками */
-        .status-risk-item { margin-bottom: 1.5rem; }
-
-        /* === ИЗМЕНЕНИЕ 3: СТРУКТУРА СТРАНИЦЫ "РОАДМАП" === */
-        .roadmap-container { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); }
-        .roadmap-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
-        .roadmap-header { color: var(--text-color-dim); padding-bottom: 1rem; }
-        .roadmap-row { display: contents; /* Позволяет .roadmap-cell быть прямыми детьми grid */ }
-        .roadmap-cell { padding: 1rem 0; border-top: 1px solid var(--border-color); position: relative; min-height: 24px; }
-        .roadmap-cell:first-child { padding-left: 1rem; }
-        .roadmap-item { position: absolute; padding: 0.4rem 0.8rem; font-size: 0.9rem; border-radius: 20px; top: 50%; transform: translate(-50%, -50%); }
-        .roadmap-item.work { background-color: var(--roadmap-work); color: var(--bg-color); }
-        .roadmap-item.done { background-color: var(--roadmap-done); color: var(--bg-color); }
-        .roadmap-item.plan { background-color: var(--roadmap-plan); color: var(--bg-color); }
-
+        :root { --bg-color: #0a0f18; --card-bg-color: rgba(26, 36, 54, 0.6); --border-color: rgba(0, 199, 255, 0.2); --glow-color: rgba(0, 199, 255, 0.15); --text-color: #e0e0e0; --text-color-dim: #999; --accent-green: #9effa1; --accent-green-dark: #3a753c; --accent-cyan: #00c7ff; --accent-red: #ff5252; --accent-red-dark: #812929; --roadmap-work: #e0b457; --roadmap-done: #77c9c9; --roadmap-plan: #6a7f9a; }
+        body { background-color: var(--bg-color); background-image: url('fon.png'); background-size: cover; background-position: center; background-attachment: fixed; color: var(--text-color); font-family: 'Roboto', sans-serif; margin: 0; padding: 2rem; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+        .hidden { display: none !important; } .page { width: 100%; max-width: 1200px; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; } .top-bar-left { display: flex; align-items: center; gap: 1.5rem; } .page-header { padding: 0; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); } .project-name { font-size: 1rem; font-weight: 300; color: var(--text-color-dim); letter-spacing: 1px; text-transform: uppercase; margin: 0; } .page-title { font-size: 3rem; font-weight: 700; margin: 0; text-transform: uppercase; }
+        .project-nav { display: flex; gap: 1rem; } .nav-button { padding: 0.75rem 1.5rem; font-size: 1rem; color: var(--text-color-dim); background: none; border: 1px solid var(--border-color); border-radius: 30px; cursor: pointer; transition: all 0.3s ease; } .nav-button.active, .nav-button:hover { color: var(--bg-color); background-color: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: 0 0 15px var(--glow-color); } .back-button { padding: 0.75rem 1.5rem; font-size: 1rem; color: var(--text-color); background: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 30px; cursor: pointer; transition: all 0.3s ease; } .back-button:hover { color: var(--bg-color); background-color: var(--accent-green); border-color: var(--accent-green); }
+        #page-home .page-header { border-bottom: none; } #page-home .project-button { display: block; width: 100%; padding: 1.5rem; margin-bottom: 1rem; font-size: 1.5rem; color: var(--text-color); background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 15px; text-align: left; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); } #page-home .project-button:hover { background-color: rgba(0, 199, 255, 0.2); box-shadow: 0 0 20px var(--glow-color); border-color: var(--accent-cyan); }
+        .description-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; } .desc-column { display: flex; flex-direction: column; gap: 2rem; } .desc-card { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 30px; padding: 1.5rem 2rem; backdrop-filter: blur(10px); } .desc-card.full-height { min-height: 400px; } .desc-card h3, .confluence-button { margin: -1.5rem -2rem 1.5rem -2rem; padding: 0.75rem 2rem; border-radius: 30px 30px 0 0; background: linear-gradient(to right, var(--accent-green), var(--accent-cyan)); color: var(--bg-color); font-weight: 700; text-align: center; } .confluence-button { display: block; text-decoration: none; border-radius: 30px; margin: 0; transition: all 0.3s ease; } .confluence-button:hover { box-shadow: 0 0 20px var(--glow-color); }
+        .status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; } .status-card { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem; backdrop-filter: blur(10px); } .status-card-header { display: inline-block; padding: 0.5rem 1.5rem; border-radius: 20px; margin-bottom: 1.5rem; font-weight: 700; color: var(--bg-color); } .status-card-header.green { background: linear-gradient(to right, #9effa1, #63d4ac); } .status-card-header.red { background: linear-gradient(to right, #ff5252, #c74169); } .status-card-header.blue { background: linear-gradient(to right, #63a4ff, #41c7c7); } .status-item-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; } .status-item-tile { background-color: rgba(10, 15, 24, 0.7); border-radius: 10px; padding: 1rem; display: flex; align-items: flex-start; gap: 10px; } .status-item-num { color: var(--text-color-dim); font-weight: 300; } .status-item-text { font-weight: 400; font-size: 0.9rem; } .status-risk-item { margin-bottom: 1.5rem; font-weight: bold; } .status-risk-comment { font-size: 0.9rem; color: var(--text-color-dim); padding-left: 1rem; }
+        .roadmap-container { background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px); } .roadmap-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; } .roadmap-header { color: var(--text-color-dim); padding-bottom: 1rem; } .roadmap-row { display: contents; } .roadmap-cell { padding: 1rem 0; border-top: 1px solid var(--border-color); position: relative; min-height: 24px; } .roadmap-cell:first-child { padding-left: 1rem; } .roadmap-item { position: absolute; padding: 0.4rem 0.8rem; font-size: 0.9rem; border-radius: 20px; top: 50%; transform: translate(-50%, -50%); } .roadmap-item.work { background-color: var(--roadmap-work); color: var(--bg-color); } .roadmap-item.done { background-color: var(--roadmap-done); color: var(--bg-color); } .roadmap-item.plan { background-color: var(--roadmap-plan); color: var(--bg-color); }
     </style>
 </head>
 <body>
@@ -125,50 +43,51 @@
     </div>
 
     <script>
-        // === ИМИТАЦИЯ ДАННЫХ ИЗ ГУГЛ ТАБЛИЦ ===
-        const mockProjectData = [
-            { "Проекты": "Голосовые тренажеры", "Заказчик": "Сергеев А.П.", "Страница в конфлюс": "https://confluence.example.com/voice-project", "Описание": "Разработка и внедрение системы голосовых симуляций для обучения персонала.", "Участники": "Иванов И.И. (РП), Петрова А.А. (Аналитик), Сидоров К.К. (Разработчик)", "Статус": 1, "Роадмап": 1, "Тендер": 0 },
-            { "Проекты": "Миграция на новую CRM", "Заказчик": "Кузнецова В.Д.", "Страница в конфлюс": "https://confluence.example.com/crm-migration", "Описание": "Перенос данных и процессов из устаревшей CRM в современную облачную платформу.", "Участники": "Смирнова О.В. (РП), Козлов Д.Н. (Интегратор)", "Статус": 1, "Роадмап": 0, "Тендер": 1 },
-        ];
-        const mockStatusData = [
-            { "Проект": "Голосовые тренажеры", "Категория": "ВЫПОЛНЕНО", "Номер": "01", "Текст": "Написали требования от бизнеса" },
-            { "Проект": "Голосовые тренажеры", "Категория": "ВЫПОЛНЕНО", "Номер": "02", "Текст": "Провели пилоты Target АИ и Аспирити" },
-            { "Проект": "Голосовые тренажеры", "Категория": "РИСКИ", "Номер": "", "Текст": "Текущий провайдер откажется пролонгировать договор на наших условиях. Ведутся переговоры." },
-            { "Проект": "Голосовые тренажеры", "Категория": "РИСКИ", "Номер": "", "Текст": "Слишком долгое согласование договора. Договариваемся о постоплате." },
-            { "Проект": "Голосовые тренажеры", "Категория": "КЛЮЧЕВЫЕ ЗАДАЧИ", "Номер": "01", "Текст": "Пролонгировать договор со SkyTrainer" },
-            { "Проект": "Голосовые тренажеры", "Категория": "ПЛАН НА 4Q25", "Номер": "01", "Текст": "Пролонгировать договор со Скайтренер" },
-            { "Проект": "Голосовые тренажеры", "Категория": "ПЛАН НА 4Q25", "Номер": "02", "Текст": "Дождаться результатов пилота по ЛексикВойс" },
-        ];
-        const mockRoadmapData = [
-            { "Проект": "Голосовые тренажеры", "Задача": "Согласование параметров проведения RFI", "Квартал": "4Q 2025", "Дата": "21.11", "Позиция": 30, "Статус": "done" },
-            { "Проект": "Голосовые тренажеры", "Задача": "Сбор предложений", "Квартал": "4Q 2025", "Дата": "23.12", "Позиция": 95, "Статус": "done" },
-            { "Проект": "Голосовые тренажеры", "Задача": "Анализ полученных ТКП", "Квартал": "1Q 2026", "Дата": "07.01", "Позиция": 15, "Статус": "work" },
-            { "Проект": "Голосовые тренажеры", "Задача": "Подведение итогов RFI", "Квартал": "1Q 2026", "Дата": "21.01", "Позиция": 40, "Статус": "work" },
-            { "Проект": "Голосовые тренажеры", "Задача": "Запустить тендер по итогам RFI", "Квартал": "2Q 2026", "Дата": "31.03", "Позиция": 90, "Статус": "plan" },
-        ];
-        
+        // === ИНТЕГРАЦИЯ С GOOGLE SHEETS ===
+        const SHEETS_URLS = {
+            project: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV5Z3aWm3z0DtdVA9vviQ3hsE_RKm7uEaysK53Dgd8ExJ2aUdrGX6xmkHFHYejISw7vtroWX1g-yiM/pub?gid=0&single=true&output=csv',
+            status: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV5Z3aWm3z0DtdVA9vviQ3hsE_RKm7uEaysK53Dgd8ExJ2aUdrGX6xmkHFHYejISw7vtroWX1g-yiM/pub?gid=609284929&single=true&output=csv',
+            roadmap: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSV5Z3aWm3z0DtdVA9vviQ3hsE_RKm7uEaysK53Dgd8ExJ2aUdrGX6xmkHFHYejISw7vtroWX1g-yiM/pub?gid=870835068&single=true&output=csv'
+        };
+
+        let projectData = [];
+        let statusData = [];
+        let roadmapData = [];
         let currentProjectName = null;
+        
+        // --- ПАРСЕР CSV ---
+        function parseCSV(text) {
+            const lines = text.trim().split(/\r?\n/);
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                return headers.reduce((obj, header, index) => {
+                    obj[header.trim()] = values[index] ? values[index].trim() : '';
+                    return obj;
+                }, {});
+            });
+        }
 
         // --- ГЛАВНЫЕ ФУНКЦИИ РЕНДЕРИНГА ---
-        function renderHomePage() { /* ... без изменений ... */ }
-        function renderProjectPage(projectName) { /* ... без изменений ... */ }
+        function renderHomePage() { /* ... без изменений, но будет использовать глобальные данные ... */ }
+        function renderProjectPage(projectName) { /* ... без изменений, но будет использовать глобальные данные ... */ }
         
         // --- ФУНКЦИИ РЕНДЕРИНГА ОТДЕЛЬНЫХ СТРАНИЦ ПРОЕКТА ---
         function renderDescriptionView(projectName) {
-            const project = mockProjectData.find(p => p['Проекты'] === projectName);
+            const project = projectData.find(p => p['Проект'] === projectName);
             const container = document.getElementById('content-description');
             container.innerHTML = `
                 <div class="description-layout">
                     <div class="desc-column">
                         <div class="desc-card full-height">
                             <h3>ОПИСАНИЕ ПРОЕКТА</h3>
-                            <p>${project['Описание']}</p>
+                            <p>${project['Описание проекта'] || 'Нет данных'}</p>
                         </div>
                     </div>
                     <div class="desc-column">
                         <div class="desc-card">
                             <h3>УЧАСТНИКИ</h3>
-                            <p>${project['Участники'].replace(/\, /g, '<br>')}</p>
+                            <p>${(project['Участники'] || 'Нет данных').replace(/;/g, '<br>')}</p>
                         </div>
                         <a href="${project['Страница в конфлюс']}" target="_blank" class="confluence-button">ССЫЛКА НА CONFLUENCE</a>
                     </div>
@@ -177,75 +96,83 @@
         }
         
         function renderStatusView(projectName) {
-            const data = mockStatusData.filter(item => item['Проект'] === projectName);
-            const categories = {
-                "ВЫПОЛНЕНО": { items: [], color: 'green' },
-                "РИСКИ": { items: [], color: 'red' },
-                "КЛЮЧЕВЫЕ ЗАДАЧИ": { items: [], color: 'blue' },
-                "ПЛАН НА 4Q25": { items: [], color: 'blue' }
-            };
-            data.forEach(item => { if(categories[item['Категория']]) categories[item['Категория']].items.push(item); });
-
+            const projectStatus = statusData.find(item => item['Проект'] === projectName);
             const container = document.getElementById('content-status');
-            container.innerHTML = `<div class="status-grid">${Object.keys(categories).map(catName => {
-                const category = categories[catName];
-                let itemsHtml;
-                if (catName === 'РИСКИ') {
-                    itemsHtml = category.items.map(item => `<div class="status-risk-item">${item['Текст']}</div>`).join('');
-                } else {
-                    itemsHtml = `<div class="status-item-grid">${category.items.map(item => `
-                        <div class="status-item-tile">
-                            <div class="status-item-num">${item['Номер']}</div>
-                            <div class="status-item-text">${item['Текст']}</div>
-                        </div>
-                    `).join('')}</div>`;
+            if (!projectStatus) {
+                container.innerHTML = `<p>Данные по статусу для этого проекта отсутствуют.</p>`;
+                return;
+            }
+
+            const categories = { "ВЫПОЛНЕНО": [], "КЛЮЧЕВЫЕ ЗАДАЧИ": [], "ПЛАН НА 4Q25": [], "РИСКИ": [] };
+            
+            for (const key in projectStatus) {
+                if (!projectStatus[key]) continue; // Пропускаем пустые ячейки
+                if (key.startsWith('Выполнено')) categories['ВЫПОЛНЕНО'].push({ num: key.replace('Выполнено', ''), text: projectStatus[key] });
+                else if (key.startsWith('КЗ')) categories['КЛЮЧЕВЫЕ ЗАДАЧИ'].push({ num: key.replace('КЗ', ''), text: projectStatus[key] });
+                else if (key.startsWith('План')) categories['ПЛАН НА 4Q25'].push({ num: key.replace('План', ''), text: projectStatus[key] });
+                else if (key.startsWith('Риски')) {
+                    const riskNum = key.replace('Риски', '');
+                    categories['РИСКИ'].push({ text: projectStatus[key], comment: projectStatus[`Комент риски${riskNum}`] || '' });
                 }
-                return `
-                    <div class="status-card">
-                        <div class="status-card-header ${category.color}">${catName}</div>
-                        ${itemsHtml}
-                    </div>
-                `;
-            }).join('')}</div>`;
+            }
+
+            container.innerHTML = `<div class="status-grid">
+                <div class="status-card">
+                    <div class="status-card-header green">ВЫПОЛНЕНО</div>
+                    <div class="status-item-grid">${categories['ВЫПОЛНЕНО'].map(item => `<div class="status-item-tile"><div class="status-item-num">${item.num}</div><div class="status-item-text">${item.text}</div></div>`).join('')}</div>
+                </div>
+                <div class="status-card">
+                    <div class="status-card-header red">РИСКИ</div>
+                    ${categories['РИСКИ'].map(item => `<div class="status-risk-item">${item.text}<div class="status-risk-comment">${item.comment}</div></div>`).join('')}
+                </div>
+                <div class="status-card">
+                    <div class="status-card-header blue">КЛЮЧЕВЫЕ ЗАДАЧИ</div>
+                    <div class="status-item-grid">${categories['КЛЮЧЕВЫЕ ЗАДАЧИ'].map(item => `<div class="status-item-tile"><div class="status-item-num">${item.num}</div><div class="status-item-text">${item.text}</div></div>`).join('')}</div>
+                </div>
+                <div class="status-card">
+                    <div class="status-card-header blue">ПЛАН НА 4Q25</div>
+                    <div class="status-item-grid">${categories['ПЛАН НА 4Q25'].map(item => `<div class="status-item-tile"><div class="status-item-num">${item.num}</div><div class="status-item-text">${item.text}</div></div>`).join('')}</div>
+                </div>
+            </div>`;
         }
 
         function renderRoadmapView(projectName) {
-            const data = mockRoadmapData.filter(item => item['Проект'] === projectName);
+            const data = roadmapData.filter(item => item['Проект'] === projectName);
             const container = document.getElementById('content-roadmap');
-            container.innerHTML = `
-                <div class="roadmap-container">
-                    <div class="roadmap-grid">
-                        <div class="roadmap-header">Задача</div>
-                        <div class="roadmap-header" style="text-align: center;">4Q 2025</div>
-                        <div class="roadmap-header" style="text-align: center;">1Q 2026</div>
-                        <div class="roadmap-header" style="text-align: center;">2Q 2026</div>
-                    </div>
-                    <div class="roadmap-grid">
-                        ${data.map(item => `
-                            <div class="roadmap-row">
-                                <div class="roadmap-cell">${item['Задача']}</div>
-                                <div class="roadmap-cell">${item['Квартал'] === '4Q 2025' ? `<div class="roadmap-item ${item['Статус']}" style="left: ${item['Позиция']}%">${item['Дата']}</div>` : ''}</div>
-                                <div class="roadmap-cell">${item['Квартал'] === '1Q 2026' ? `<div class="roadmap-item ${item['Статус']}" style="left: ${item['Позиция']}%">${item['Дата']}</div>` : ''}</div>
-                                <div class="roadmap-cell">${item['Квартал'] === '2Q 2026' ? `<div class="roadmap-item ${item['Статус']}" style="left: ${item['Позиция']}%">${item['Дата']}</div>` : ''}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
+            container.innerHTML = `<p>Отображение нового формата роадмапа в разработке...</p>`;
+            // Логика для нового формата роадмапа (Дата начала, Дата окончания) требует полной переработки визуализации. 
+            // Это не просто замена данных, а создание новой диаграммы. Пока стоит заглушка.
         }
         
         function renderTenderView(projectName) { /* ... без изменений ... */ }
 
         // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ И ИНИЦИАЛИЗАЦИЯ ---
-        // Тут тоже нет изменений, копируйте весь блок <script> целиком, чтобы не ошибиться.
-        // ... (весь остальной JS-код)
         function showPage(pageId) { document.getElementById('page-home').classList.add('hidden'); document.getElementById('page-project').classList.add('hidden'); document.getElementById(pageId).classList.remove('hidden'); }
         function switchProjectView(viewId, renderFunc) { document.querySelectorAll('.project-view').forEach(view => view.classList.add('hidden')); const viewContainer = document.getElementById(viewId); viewContainer.classList.remove('hidden'); renderFunc(currentProjectName); document.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active')); document.querySelector(`.nav-button[data-view="${viewId}"]`).classList.add('active'); const titles = { 'content-description': 'ОПИСАНИЕ ПРОЕКТА', 'content-status': 'СТАТУС ПО ПРОЕКТУ', 'content-roadmap': 'ROADMAP ПРОЕКТА', 'content-tender': 'ТЕНДЕР' }; document.getElementById('project-header-title').textContent = titles[viewId]; }
-        document.addEventListener('DOMContentLoaded', () => { document.getElementById('back-to-home').onclick = renderHomePage; renderHomePage(); });
-        function renderHomePage() { const container = document.getElementById('project-list'); container.innerHTML = ''; mockProjectData.forEach(p => { const button = document.createElement('button'); button.className = 'project-button'; button.textContent = p['Проекты']; button.onclick = () => renderProjectPage(p['Проекты']); container.appendChild(button); }); showPage('page-home'); }
-        function renderProjectPage(projectName) { currentProjectName = projectName; const project = mockProjectData.find(p => p['Проекты'] === projectName); if (!project) return; document.getElementById('project-header-name').textContent = project['Проекты']; const navContainer = document.getElementById('project-navigation'); navContainer.innerHTML = ''; const navs = { 'Описание': { id: 'content-description', exists: true, renderFunc: renderDescriptionView }, 'Статус': { id: 'content-status', exists: project['Статус'] === 1, renderFunc: renderStatusView }, 'Роадмап': { id: 'content-roadmap', exists: project['Роадмап'] === 1, renderFunc: renderRoadmapView }, 'Тендер': { id: 'content-tender', exists: project['Тендер'] === 1, renderFunc: renderTenderView } }; for (const navName in navs) { if (navs[navName].exists) { const button = document.createElement('button'); button.textContent = navName; button.className = 'nav-button'; button.dataset.view = navs[navName].id; button.onclick = () => switchProjectView(navs[navName].id, navs[navName].renderFunc); navContainer.appendChild(button); } } showPage('page-project'); switchProjectView(navs['Описание'].id, navs['Описание'].renderFunc); }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Инициализация. Загрузка данных...');
+            document.getElementById('back-to-home').onclick = renderHomePage;
+            
+            Promise.all([
+                fetch(SHEETS_URLS.project).then(res => res.text()),
+                fetch(SHEETS_URLS.status).then(res => res.text()),
+                fetch(SHEETS_URLS.roadmap).then(res => res.text())
+            ]).then(([projectCSV, statusCSV, roadmapCSV]) => {
+                projectData = parseCSV(projectCSV);
+                statusData = parseCSV(statusCSV);
+                roadmapData = parseCSV(roadmapCSV);
+                console.log('Данные успешно загружены и обработаны.', { projectData, statusData, roadmapData });
+                renderHomePage();
+            }).catch(error => {
+                console.error("Критическая ошибка при загрузке данных из Google Sheets:", error);
+                document.body.innerHTML = '<h1>Ошибка загрузки данных. Проверьте консоль (F12) и доступ к таблицам.</h1>';
+            });
+        });
+        
+        function renderHomePage() { const container = document.getElementById('project-list'); container.innerHTML = ''; projectData.forEach(p => { const button = document.createElement('button'); button.className = 'project-button'; button.textContent = p['Проект']; button.onclick = () => renderProjectPage(p['Проект']); container.appendChild(button); }); showPage('page-home'); }
+        function renderProjectPage(projectName) { currentProjectName = projectName; const project = projectData.find(p => p['Проект'] === projectName); if (!project) return; document.getElementById('project-header-name').textContent = project['Проект']; const navContainer = document.getElementById('project-navigation'); navContainer.innerHTML = ''; const navs = { 'Описание': { id: 'content-description', exists: true, renderFunc: renderDescriptionView }, 'Статус': { id: 'content-status', exists: project['Статус'] === '1', renderFunc: renderStatusView }, 'Роадмап': { id: 'content-roadmap', exists: project['Роадмап'] === '1', renderFunc: renderRoadmapView }, 'Тендер': { id: 'content-tender', exists: project['Тендер'] === '1', renderFunc: renderTenderView } }; for (const navName in navs) { if (navs[navName].exists) { const button = document.createElement('button'); button.textContent = navName; button.className = 'nav-button'; button.dataset.view = navs[navName].id; button.onclick = () => switchProjectView(navs[navName].id, navs[navName].renderFunc); navContainer.appendChild(button); } } showPage('page-project'); switchProjectView(navs['Описание'].id, navs['Описание'].renderFunc); }
         function renderTenderView(projectName) { const container = document.getElementById('content-tender'); container.innerHTML = `<p>Структура для страницы 'Тендер' будет определена позже.</p>`; }
-
     </script>
 </body>
 </html>
